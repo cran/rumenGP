@@ -1,0 +1,385 @@
+
+---
+title: "Getting Started with rumenGP"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with rumenGP}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+**rumenGP** provides a complete workflow for analyzing
+*in vitro* rumen gas production experiments.
+
+The package supports:
+
+- ANKOM RF datasets
+- Manual gas-volume datasets
+- Pressure-based datasets
+- Twelve built-in kinetic models
+- User-defined kinetic models
+- Model comparison and ranking
+- Treatment-level model evaluation
+- Diagnostic and visualization tools
+
+This vignette demonstrates a complete workflow using
+the packaged ANKOM example dataset.
+
+```{r}
+library(rumenGP)
+```
+
+# Load Example Data
+
+The package includes a small example dataset.
+
+```{r}
+files <- example_data()
+
+files
+```
+
+# Import ANKOM Data
+
+Import the ANKOM RF output file and metadata table.
+
+```{r}
+raw_data <- read_ankom(
+  files$ankom
+)
+
+metadata <- read_metadata(
+  files$metadata
+)
+```
+
+# Validate Metadata
+
+Before processing data, validate the metadata table.
+
+```{r}
+metadata <- validate_metadata(
+  metadata
+)
+```
+
+# Process ANKOM Data
+
+Convert pressure measurements into cumulative gas production.
+
+```{r}
+gp <- process_ankom(
+  raw_data,
+  metadata,
+  headspace_ml = 210,
+  temperature_c = 39,
+  zero_negative_pressure = TRUE
+)
+```
+
+# Validate Processed Data
+
+The resulting dataset is a standardized
+`rumen_gp` object.
+
+```{r}
+gp <- validate_ankom(
+  gp
+)
+
+class(gp)
+```
+
+Inspect the data:
+
+```{r}
+head(gp)
+```
+
+# Visualize Raw Gas Production
+
+Individual bottle profiles can be visualized.
+
+```{r, eval = FALSE}
+plot_gp(
+  gp,
+  head = "1"
+)
+```
+
+# Fit Kinetic Models
+
+Several built-in models are available.
+
+```{r}
+groot_fit <- fit_groot(gp)
+
+gompertz_fit <- fit_gompertz(gp)
+
+brody_fit <- fit_brody(gp)
+```
+
+# Summarize Model Fits
+
+Each model provides parameter estimates and
+diagnostic statistics.
+
+```{r}
+summary(groot_fit)
+```
+
+# Identify Potentially Problematic Bottles
+
+```{r}
+flags <- flag_model(
+  groot_fit
+)
+
+head(flags)
+```
+
+# Plot Model Fits
+
+Observed and predicted values can be visualized.
+
+```{r, eval = FALSE}
+plot_fit(
+  groot_fit,
+  head = "1"
+)
+```
+
+# Plot Residuals
+
+Residual plots help identify systematic deviations.
+
+```{r, eval = FALSE}
+plot_residuals(
+  groot_fit,
+  head = "1"
+)
+```
+
+# Compare Models
+
+Compare model performance using multiple metrics.
+
+```{r}
+comparison <- compare_models(
+
+  Groot = groot_fit,
+
+  Gompertz = gompertz_fit,
+
+  Brody = brody_fit
+
+)
+
+comparison
+```
+
+The comparison table includes:
+
+- Mean R-squared
+- Mean RMSE
+- Mean RSS
+- Mean AIC
+- Mean BIC
+- Number of successful fits
+
+# Rank Models
+
+```{r}
+rank_models(
+  comparison
+)
+```
+
+# Compare Models by Treatment
+
+Treatment-level comparisons are also available.
+
+```{r}
+treatment_comparison <-
+  compare_models_by_treatment(
+
+    Groot = groot_fit,
+
+    Gompertz = gompertz_fit,
+
+    Brody = brody_fit
+
+  )
+
+treatment_comparison
+```
+
+# Rank Models by Treatment
+
+```{r}
+ranked_treatments <-
+  rank_models_by_treatment(
+    treatment_comparison
+  )
+
+ranked_treatments
+```
+
+# Determine the Best Model per Treatment
+
+```{r}
+best_models <-
+  best_model_by_treatment(
+    ranked_treatments
+  )
+
+best_models
+```
+
+# Model Win Frequency
+
+```{r}
+model_win_frequency(
+  best_models
+)
+```
+
+# Quality Control Workflow
+
+A typical workflow is:
+
+```text
+Import data
+    ↓
+Validate metadata
+    ↓
+Process ANKOM data
+    ↓
+Validate processed data
+    ↓
+Fit models
+    ↓
+Flag problematic bottles
+    ↓
+Inspect residuals
+    ↓
+Exclude problematic bottles
+    ↓
+Refit models
+    ↓
+Compare models
+```
+
+Example bottle exclusion:
+
+```{r, eval = FALSE}
+gp_clean <- exclude_heads(
+  gp,
+  heads = c("10"),
+  reason = "Sensor malfunction"
+)
+```
+
+# Available Models
+
+Current built-in models:
+
+- Brody
+- Dual Logistic
+- EXP0
+- EXPL
+- Gompertz
+- Groot
+- LE0
+- LEL
+- Logistic
+- Mitscherlich
+- Michaelis-Menten
+- Orskov and McDonald
+
+## Note on Groot and Michaelis-Menten
+
+The Groot and generalized Michaelis-Menten
+models are mathematically equivalent.
+
+Parameter correspondence:
+
+- VF = A
+- b = K
+- k = c
+
+Researchers may choose either formulation
+depending on the terminology commonly used
+in their field.
+
+# Next Steps
+
+Additional package capabilities include:
+
+## Importing Manual Datasets
+
+```r
+gp <- as_rumen_gp(
+  data = my_data,
+  head_col = "Bottle",
+  time_col = "Time",
+  gas_col = "Gas"
+)
+```
+
+## Importing Pressure Data
+
+```r
+gp <- as_rumen_gp(
+  data = my_data,
+  head_col = "Bottle",
+  time_col = "Time",
+  pressure_col = "PSI",
+  pressure_unit = "psi",
+  headspace_volume = 60
+)
+```
+
+## User-Defined Models
+
+```r
+custom_fit <- fit_custom(
+  data = gp,
+  formula =
+    Gas_mL ~
+      A *
+      (
+        Time_h /
+        (
+          Time_h + K
+        )
+      ),
+  start = list(
+    A = 150,
+    K = 10
+  ),
+  lower = c(
+    A = 0,
+    K = 0
+  ),
+  model_name = "Hyperbolic"
+)
+```
+
+See:
+
+```r
+?as_rumen_gp
+?fit_custom
+```
+
+for additional details.

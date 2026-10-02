@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Model Equations Reference</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Model Equations Reference</h1>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>rumenGP implements a collection of nonlinear models for describing
+cumulative gas production during in vitro rumen fermentation.</p>
+<p>This vignette summarizes:</p>
+<ul>
+<li>Model equations</li>
+<li>Parameter definitions</li>
+<li>Biological interpretation</li>
+<li>Advantages</li>
+<li>Limitations</li>
+<li>Typical applications</li>
+</ul>
+<p>Throughout this vignette:</p>
+<p><span class="math display">\[
+V(t)
+\]</span></p>
+<p>represents cumulative gas production at time:</p>
+<p><span class="math display">\[
+t
+\]</span></p>
+<hr />
+</div>
+<div id="single-pool-models" class="section level1">
+<h1>Single-Pool Models</h1>
+<div id="brody" class="section level2">
+<h2>Brody</h2>
+<div id="equation" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+A
+\left(
+1
+-
+b
+e^{-kt}
+\right)
+\]</span></p>
+</div>
+<div id="parameters" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td>Integration constant</td>
+</tr>
+<tr class="odd">
+<td>k</td>
+<td>Fractional rate constant</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Simple and robust</li>
+<li>Stable convergence</li>
+<li>Easy interpretation</li>
+</ul>
+</div>
+<div id="limitations" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>No lag parameter</li>
+<li>Limited flexibility</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="ørskov-and-mcdonald" class="section level2">
+<h2>Ørskov and McDonald</h2>
+<div id="equation-1" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+VF
++
+b
+\left(
+1-e^{-kt}
+\right)
+\]</span></p>
+</div>
+<div id="parameters-1" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VF</td>
+<td>Initial gas volume (intercept)</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td>Fermentable fraction</td>
+</tr>
+<tr class="odd">
+<td>k</td>
+<td>Fractional rate constant</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-1" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Widely used in ruminant nutrition</li>
+<li>Simple biological interpretation</li>
+</ul>
+</div>
+<div id="limitations-1" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>No explicit lag phase</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="exp0" class="section level2">
+<h2>EXP0</h2>
+<div id="equation-2" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+V_f
+\left(
+1-e^{-kt}
+\right)
+\]</span></p>
+</div>
+<div id="parameters-2" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vf</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>k</td>
+<td>Fractional rate constant</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-2" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Very simple</li>
+<li>Fast convergence</li>
+</ul>
+</div>
+<div id="limitations-2" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>No lag phase</li>
+<li>Limited flexibility</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="expl" class="section level2">
+<h2>EXPL</h2>
+<div id="equation-3" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+V_f
+\left(
+1-e^{-k(t-\lambda)}
+\right)
+\]</span></p>
+</div>
+<div id="parameters-3" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vf</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>k</td>
+<td>Fractional rate constant</td>
+</tr>
+<tr class="odd">
+<td>λ</td>
+<td>Lag time</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-3" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Explicit lag parameter</li>
+<li>Easy interpretation</li>
+</ul>
+</div>
+<div id="limitations-3" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>Less flexible than sigmoidal models</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="gompertz" class="section level2">
+<h2>Gompertz</h2>
+<div id="equation-4" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+A
+\exp
+\left[
+-
+\exp
+\left(
+\frac{\mu e}{A}
+(\lambda-t)
++
+1
+\right)
+\right]
+\]</span></p>
+</div>
+<div id="parameters-4" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>μ</td>
+<td>Maximum gas production rate</td>
+</tr>
+<tr class="odd">
+<td>λ</td>
+<td>Lag time</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-4" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Explicit lag and growth-rate parameters</li>
+<li>Excellent flexibility</li>
+<li>Widely used in gas production studies</li>
+</ul>
+</div>
+<div id="limitations-4" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>More complex than exponential models</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="logistic" class="section level2">
+<h2>Logistic</h2>
+<div id="equation-5" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+\frac{A}
+{
+1+\exp
+\left[
+2+
+4k(\lambda-t)
+\right]
+}
+\]</span></p>
+</div>
+<div id="parameters-5" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>k</td>
+<td>Fractional rate constant</td>
+</tr>
+<tr class="odd">
+<td>λ</td>
+<td>Lag time</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-5" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Sigmoidal behavior</li>
+<li>Stable convergence</li>
+</ul>
+</div>
+<div id="limitations-5" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>Assumes symmetric sigmoid shape</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="mitscherlich" class="section level2">
+<h2>Mitscherlich</h2>
+<div id="equation-6" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+A
+\left[
+1
+-
+\exp
+\left(
+-k(t-\lambda)
+-
+d
+\left(
+\sqrt{t+0.001}
+-
+\sqrt{\lambda+0.001}
+\right)
+\right)
+\right]
+\]</span></p>
+</div>
+<div id="parameters-6" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>k</td>
+<td>Fractional rate constant</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td>Shape parameter</td>
+</tr>
+<tr class="even">
+<td>λ</td>
+<td>Lag time</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-6" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Flexible curve shape</li>
+<li>Explicit lag phase</li>
+</ul>
+</div>
+<div id="limitations-6" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>More parameters</li>
+<li>Increased parameter correlation</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="le0-logistic-exponential-without-lag" class="section level2">
+<h2>LE0 (Logistic-Exponential Without Lag)</h2>
+<div id="equation-7" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+\frac{
+A
+\left(
+1-e^{-kt}
+\right)
+}
+{
+1+\exp
+\left[
+\ln\left(\frac{1}{d}\right)-kt
+\right]
+}
+\]</span></p>
+</div>
+<div id="parameters-7" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>k</td>
+<td>Fractional rate constant</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td>Shape parameter</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-7" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Flexible shape</li>
+<li>No lag parameter required</li>
+</ul>
+</div>
+<div id="limitations-7" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>More complex than simple exponential models</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="lel-logistic-exponential-with-lag" class="section level2">
+<h2>LEL (Logistic-Exponential With Lag)</h2>
+<div id="equation-8" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+\frac{
+A
+\left(
+1-e^{-k(t-\lambda)}
+\right)
+}
+{
+1+\exp
+\left[
+\ln\left(\frac{1}{d}\right)
+-
+k(t-\lambda)
+\right]
+}
+\]</span></p>
+</div>
+<div id="parameters-8" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>k</td>
+<td>Fractional rate constant</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td>Shape parameter</td>
+</tr>
+<tr class="even">
+<td>λ</td>
+<td>Lag time</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-8" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Flexible shape</li>
+<li>Explicit lag phase</li>
+</ul>
+</div>
+<div id="limitations-8" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>Additional complexity may affect convergence</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="michaelis-menten" class="section level2">
+<h2>Michaelis-Menten</h2>
+<div id="equation-9" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+A
+\frac{t^{c}}
+{
+t^{c}+K^{c}
+}
+\]</span></p>
+</div>
+<div id="parameters-9" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>K</td>
+<td>Half-time parameter</td>
+</tr>
+<tr class="odd">
+<td>c</td>
+<td>Shape parameter</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-9" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Flexible</li>
+<li>Strong biological interpretation</li>
+</ul>
+</div>
+<div id="limitations-9" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>Shape parameter may be difficult to interpret biologically</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="groot" class="section level2">
+<h2>Groot</h2>
+<div id="equation-10" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+\frac{VF}
+{
+1+\left(\frac{b}{t}\right)^k
+}
+\]</span></p>
+</div>
+<div id="parameters-10" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VF</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td>Half-time parameter</td>
+</tr>
+<tr class="odd">
+<td>k</td>
+<td>Shape parameter</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-10" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Excellent flexibility</li>
+<li>Widely used in rumen gas production studies</li>
+</ul>
+</div>
+<div id="limitations-10" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>Requires positive incubation times</li>
+</ul>
+<hr />
+</div>
+</div>
+</div>
+<div id="multi-pool-models" class="section level1">
+<h1>Multi-Pool Models</h1>
+<div id="dual-logistic" class="section level2">
+<h2>Dual Logistic</h2>
+<div id="equation-11" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+\frac{V_{1F}}
+{
+1+\exp
+\left[
+2-4k_1(t-\lambda)
+\right]
+}
++
+\frac{V_{2F}}
+{
+1+\exp
+\left[
+2-4k_2(t-\lambda)
+\right]
+}
+\]</span></p>
+</div>
+<div id="parameters-11" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>V1F</td>
+<td>Gas volume from rapidly fermentable fraction</td>
+</tr>
+<tr class="even">
+<td>V2F</td>
+<td>Gas volume from slowly fermentable fraction</td>
+</tr>
+<tr class="odd">
+<td>k1</td>
+<td>Rate constant of rapid fraction</td>
+</tr>
+<tr class="even">
+<td>k2</td>
+<td>Rate constant of slow fraction</td>
+</tr>
+<tr class="odd">
+<td>λ</td>
+<td>Lag time</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="advantages-11" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Represents multiple fermentation pools</li>
+<li>Biologically meaningful decomposition</li>
+</ul>
+</div>
+<div id="limitations-11" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>More parameters</li>
+<li>Greater convergence challenges</li>
+</ul>
+<hr />
+</div>
+</div>
+</div>
+<div id="model-equivalence" class="section level1">
+<h1>Model Equivalence</h1>
+<div id="groot-and-michaelis-menten" class="section level2">
+<h2>Groot and Michaelis-Menten</h2>
+<p>The Groot and generalized Michaelis-Menten models are mathematically
+equivalent.</p>
+<p>Parameter correspondence:</p>
+<p><span class="math display">\[
+VF = A
+\]</span></p>
+<p><span class="math display">\[
+b = K
+\]</span></p>
+<p><span class="math display">\[
+k = c
+\]</span></p>
+<p>Both formulations produce identical fitted values and model
+diagnostics when convergence is achieved.</p>
+<p>Researchers may select either model according to the terminology
+commonly used in their field.</p>
+<hr />
+</div>
+</div>
+<div id="choosing-a-model" class="section level1">
+<h1>Choosing a Model</h1>
+<p>A practical progression is:</p>
+<div id="simple-models" class="section level2">
+<h2>Simple Models</h2>
+<ul>
+<li>EXP0</li>
+<li>Brody</li>
+<li>Ørskov and McDonald</li>
+</ul>
+<p>Use when:</p>
+<ul>
+<li>Data show monotonic behavior</li>
+<li>Lag is negligible</li>
+<li>Simplicity is preferred</li>
+</ul>
+<hr />
+</div>
+<div id="lag-models" class="section level2">
+<h2>Lag Models</h2>
+<ul>
+<li>EXPL</li>
+<li>Logistic</li>
+<li>Gompertz</li>
+<li>Mitscherlich</li>
+</ul>
+<p>Use when:</p>
+<ul>
+<li>A lag phase is biologically expected</li>
+<li>Initial microbial adaptation is important</li>
+</ul>
+<hr />
+</div>
+<div id="flexible-sigmoidal-models" class="section level2">
+<h2>Flexible Sigmoidal Models</h2>
+<ul>
+<li>LE0</li>
+<li>LEL</li>
+<li>Groot</li>
+<li>Michaelis-Menten</li>
+</ul>
+<p>Use when:</p>
+<ul>
+<li>Fermentation profiles display sigmoidal behavior</li>
+<li>Greater flexibility is needed</li>
+</ul>
+<hr />
+</div>
+<div id="multi-pool-models-1" class="section level2">
+<h2>Multi-Pool Models</h2>
+<ul>
+<li>Dual Logistic</li>
+</ul>
+<p>Use when:</p>
+<ul>
+<li>Fast and slow fermenting fractions are expected</li>
+<li>Substrate heterogeneity is important</li>
+</ul>
+<hr />
+</div>
+<div id="custom-models" class="section level2">
+<h2>Custom Models</h2>
+<p>Researchers can also define their own equations using:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">fit_custom</span>()</span></code></pre></div>
+<p>See:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">&quot;custom-models&quot;</span>)</span></code></pre></div>
+<p>for additional details.</p>
+<hr />
+</div>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<p>rumenGP provides a diverse collection of nonlinear kinetic models
+ranging from simple exponential equations to flexible multi-pool
+formulations.</p>
+<p>Model choice should be guided by:</p>
+<ul>
+<li>Biological plausibility</li>
+<li>Goodness of fit</li>
+<li>Parameter interpretability</li>
+<li>Convergence stability</li>
+<li>Research objectives</li>
+</ul>
+<p>Researchers are encouraged to compare multiple models before
+selecting a final representation of fermentation kinetics.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

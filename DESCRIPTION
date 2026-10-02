@@ -1,0 +1,45 @@
+Package: rumenGP
+Title: Rumen Gas Production Modeling, Comparison, and Visualization
+Version: 0.1.1
+Authors@R: 
+    c(
+      person(
+        "Arlan",
+        "Araujo Rodrigues",
+        email = "araujorodrig@wisc.edu",
+        role = c("aut", "cre")
+      ),
+      person(
+        "Hilario",
+        "Cuquetto Mantovani",
+        email = "hcmantovani@wisc.edu",
+        role = "aut"
+      )
+    )
+Description: Provides tools for importing, processing,
+    visualizing, fitting, comparing, and interpreting
+    in vitro rumen gas production data. Supports ANKOM RF
+    workflows, generic gas production datasets, and
+    pressure-based measurements. Includes multiple kinetic
+    models, custom nonlinear models, model comparison
+    workflows, treatment-level ranking, diagnostic tools,
+    and visualization functions for rumen fermentation
+    studies.
+License: MIT + file LICENSE
+URL: https://araujorodrig-lab.github.io/rumenGP/,
+        https://github.com/araujorodrig-lab/rumenGP
+BugReports: https://github.com/araujorodrig-lab/rumenGP/issues
+Encoding: UTF-8
+RoxygenNote: 7.3.3
+Depends: R (>= 4.1.0)
+Imports: dplyr, ggplot2, lubridate, minpack.lm, purrr, readxl, tidyr
+Suggests: knitr, rmarkdown, pkgdown, spelling
+VignetteBuilder: knitr
+Language: en-US
+NeedsCompilation: no
+Packaged: 2026-09-22 18:30:18 UTC; Arlan
+Author: Arlan Araujo Rodrigues [aut, cre],
+  Hilario Cuquetto Mantovani [aut]
+Maintainer: Arlan Araujo Rodrigues <araujorodrig@wisc.edu>
+Repository: CRAN
+Date/Publication: 2026-10-02 10:00:02 UTC

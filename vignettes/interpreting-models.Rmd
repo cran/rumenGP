@@ -1,0 +1,559 @@
+
+---
+title: "Interpreting Gas Production Models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Interpreting Gas Production Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+Fitting a model is only the first step in the analysis
+of rumen gas production data.
+
+Researchers must also interpret:
+
+- Model parameters
+- Biological meaning
+- Goodness-of-fit statistics
+- Competing model performance
+
+This vignette summarizes the most common
+interpretations used in rumen gas production studies.
+
+```{r}
+library(rumenGP)
+```
+
+# Understanding Common Parameters
+
+Although different models use different equations,
+many share similar biological concepts.
+
+---
+
+# Asymptotic Gas Production
+
+Common parameter names:
+
+```text
+A
+VF
+Vf
+V1F
+V2F
+```
+
+These parameters represent the maximum gas
+production that the model predicts after
+long incubation times.
+
+Example:
+
+```text
+A = 120 mL
+```
+
+Interpretation:
+
+```text
+The model predicts approximately
+120 mL of gas at fermentation completion.
+```
+
+Higher values generally indicate:
+
+- Greater fermentable substrate availability
+- Increased fermentation potential
+
+However, interpretation should always be made
+within the context of the substrate being studied.
+
+---
+
+# Fermentation Rate
+
+Common parameter names:
+
+```text
+k
+k1
+k2
+mu
+```
+
+These parameters describe how rapidly gas
+production approaches the asymptote.
+
+Example:
+
+```text
+Treatment A
+k = 0.08
+
+Treatment B
+k = 0.04
+```
+
+Interpretation:
+
+```text
+Treatment A ferments more rapidly
+than Treatment B.
+```
+
+Higher rates generally suggest:
+
+- Faster microbial degradation
+- Greater substrate accessibility
+
+---
+
+# Lag Time
+
+Common parameter name:
+
+```text
+lambda
+```
+
+or:
+
+\[
+\lambda
+\]
+
+Lag time represents the delay before
+substantial fermentation begins.
+
+Example:
+
+```text
+lambda = 2 h
+```
+
+Interpretation:
+
+```text
+Approximately two hours are required
+before active fermentation starts.
+```
+
+Large lag values often occur with:
+
+- Fibrous substrates
+- Physically protected nutrients
+- Slowly colonized feeds
+
+---
+
+# Half-Time Parameters
+
+Common parameter names:
+
+```text
+b
+K
+```
+
+Used in:
+
+- Groot
+- Michaelis-Menten
+
+These parameters determine the time required
+to achieve approximately half of the asymptotic
+gas production.
+
+Example:
+
+```text
+K = 12 h
+```
+
+Interpretation:
+
+```text
+Approximately 50% of total gas production
+is achieved after 12 hours.
+```
+
+Smaller values indicate faster fermentation.
+
+---
+
+# Shape Parameters
+
+Common parameter names:
+
+```text
+c
+d
+m
+```
+
+Shape parameters modify the curvature of
+the fermentation profile.
+
+Interpretation:
+
+```text
+Shape parameters control how fermentation
+accelerates and decelerates through time.
+```
+
+Unlike asymptotes or rates, shape parameters
+often have no simple biological interpretation.
+
+They are usually considered:
+
+```text
+Empirical flexibility parameters.
+```
+
+---
+
+# Interpreting Dual-Pool Models
+
+Dual-pool models separate fermentation
+into:
+
+```text
+Rapid fraction
+Slow fraction
+```
+
+Parameters:
+
+```text
+V1F
+V2F
+k1
+k2
+```
+
+---
+
+## Rapid Fraction
+
+```text
+V1F
+k1
+```
+
+Typically associated with:
+
+- Soluble carbohydrates
+- Readily fermentable compounds
+
+---
+
+## Slow Fraction
+
+```text
+V2F
+k2
+```
+
+Typically associated with:
+
+- Cell-wall components
+- Structural carbohydrates
+- Less accessible nutrients
+
+Example:
+
+```text
+V1F = 30 mL
+
+V2F = 90 mL
+```
+
+Interpretation:
+
+```text
+Most fermentation derives from
+the slowly degradable fraction.
+```
+
+---
+
+# Understanding Goodness-of-Fit Metrics
+
+Model fit should never be evaluated
+using a single statistic.
+
+---
+
+# R-Squared
+
+\[
+R^2
+\]
+
+Measures the proportion of observed
+variation explained by the model.
+
+Example:
+
+```text
+R² = 0.99
+```
+
+Interpretation:
+
+```text
+99% of variation is explained by
+the fitted model.
+```
+
+---
+
+# RMSE
+
+Root Mean Squared Error:
+
+\[
+RMSE
+\]
+
+Measures average prediction error.
+
+Example:
+
+```text
+RMSE = 1.5 mL
+```
+
+Interpretation:
+
+```text
+Predictions differ from observations
+by approximately 1.5 mL on average.
+```
+
+Smaller values are preferred.
+
+---
+
+# RSS
+
+Residual Sum of Squares:
+
+\[
+RSS
+\]
+
+Represents total unexplained variation.
+
+Smaller values indicate better fit.
+
+---
+
+# AIC
+
+Akaike Information Criterion:
+
+\[
+AIC
+\]
+
+Balances:
+
+```text
+Fit quality
++
+Model complexity
+```
+
+Smaller values are preferred.
+
+---
+
+# BIC
+
+Bayesian Information Criterion:
+
+\[
+BIC
+\]
+
+Similar to AIC but applies a stronger
+penalty for additional parameters.
+
+Smaller values are preferred.
+
+---
+
+# Why Higher R² Does Not Always Mean a Better Model
+
+Consider:
+
+| Model | Parameters | R² | AIC |
+|---------|---------|---------|---------|
+| Groot | 3 | 0.9992 | 33 |
+| Richards | 4 | 0.9994 | 35 |
+
+The Richards model explains slightly more
+variation.
+
+However:
+
+```text
+Additional complexity
+```
+
+may not justify:
+
+```text
+Minimal improvement
+```
+
+AIC correctly penalizes the extra parameter.
+
+Therefore:
+
+```text
+Higher R² alone should not determine
+model selection.
+```
+
+---
+
+# Model Selection Strategy
+
+Recommended workflow:
+
+```text
+1. Fit multiple models
+
+2. Evaluate convergence
+
+3. Compare RMSE
+
+4. Compare AIC and BIC
+
+5. Examine residual plots
+
+6. Consider biological interpretation
+
+7. Select the most appropriate model
+```
+
+---
+
+# Interpreting Failed Fits
+
+Common reasons include:
+
+```text
+Poor starting values
+
+Too many parameters
+
+Insufficient observations
+
+Parameter redundancy
+
+Inappropriate model structure
+```
+
+When convergence problems occur:
+
+- Adjust starting values
+- Apply bounds
+- Try simpler models
+- Compare alternative equations
+
+---
+
+# Biological Reality Matters
+
+The statistically best model is not always
+the biologically most meaningful model.
+
+Researchers should consider:
+
+- Biological plausibility
+- Parameter interpretation
+- Stability of estimates
+- Reproducibility
+
+alongside fit statistics.
+
+---
+
+# Practical Recommendations
+
+## Use Simple Models When
+
+- Sample size is limited
+- Fermentation is smooth
+- Interpretation is important
+
+Examples:
+
+- Brody
+- EXP0
+- Ørskov and McDonald
+
+---
+
+## Use Lag Models When
+
+- Colonization delay is expected
+
+Examples:
+
+- EXPL
+- Logistic
+- Gompertz
+- Mitscherlich
+
+---
+
+## Use Flexible Sigmoidal Models When
+
+- Fermentation profiles are complex
+
+Examples:
+
+- Groot
+- Michaelis-Menten
+- LE0
+- LEL
+
+---
+
+## Use Dual-Pool Models When
+
+- Rapid and slow fractions are biologically relevant
+
+Example:
+
+- Dual Logistic
+
+---
+
+# Summary
+
+A successful analysis combines:
+
+- Good model fit
+- Biological plausibility
+- Parameter interpretability
+- Robust convergence
+
+Researchers are encouraged to fit multiple
+models and evaluate both statistical and
+biological performance before selecting
+a final model.

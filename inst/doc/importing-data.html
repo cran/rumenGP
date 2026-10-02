@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Importing Non-ANKOM Data</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Importing Non-ANKOM Data</h1>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Not all rumen gas production experiments are conducted using the
+ANKOM RF Gas Production System.</p>
+<p>rumenGP provides the function <code>as_rumen_gp()</code> for
+importing manually collected gas-volume data and pressure-based datasets
+into the standard <code>rumen_gp</code> format.</p>
+<p>Once imported, the data can be analyzed using the same modeling,
+visualization, and model-comparison tools available for ANKOM
+experiments.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rumenGP)</span></code></pre></div>
+</div>
+<div id="importing-gas-volume-data" class="section level1">
+<h1>Importing Gas Volume Data</h1>
+<p>The simplest workflow is to import cumulative gas production
+measurements directly.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>manual_volume <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">Bottle =</span> <span class="fu">c</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  ),</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">Treatment =</span> <span class="fu">c</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    <span class="st">&quot;Control&quot;</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    <span class="st">&quot;Control&quot;</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="st">&quot;Control&quot;</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>    <span class="st">&quot;Corn&quot;</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    <span class="st">&quot;Corn&quot;</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    <span class="st">&quot;Corn&quot;</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  ),</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  <span class="at">Time =</span> <span class="fu">c</span>(</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">8</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">8</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  ),</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  <span class="at">Gas =</span> <span class="fu">c</span>(</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">20</span>,<span class="dv">40</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">35</span>,<span class="dv">60</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  )</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>)</span></code></pre></div>
+<p>Convert the dataset into a <code>rumen_gp</code> object:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>gp <span class="ot">&lt;-</span> <span class="fu">as_rumen_gp</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">data =</span> manual_volume,</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">head_col =</span> <span class="st">&quot;Bottle&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">treatment_col =</span> <span class="st">&quot;Treatment&quot;</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="at">time_col =</span> <span class="st">&quot;Time&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="at">gas_col =</span> <span class="st">&quot;Gas&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>)</span></code></pre></div>
+<p>Inspect the resulting object:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>gp</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt;   Head Bottle Rep Treatment Time_h Gas_mL</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; 1    1      1   1   Control      0      0</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; 2    1      1   1   Control      4     20</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; 3    1      1   1   Control      8     40</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; 4    2      2   1      Corn      0      0</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; 5    2      2   1      Corn      4     35</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; 6    2      2   1      Corn      8     60</span></span></code></pre></div>
+<p>Verify the class:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">class</span>(gp)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;rumen_gp&quot;   &quot;data.frame&quot;</span></span></code></pre></div>
+</div>
+<div id="required-columns" class="section level1">
+<h1>Required Columns</h1>
+<p>At minimum, gas-volume datasets must contain:</p>
+<pre class="text"><code>Bottle identifier
+Incubation time
+Gas production</code></pre>
+<p>These columns can have any names as long as they are specified
+through the function arguments.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>head_col <span class="ot">=</span> <span class="st">&quot;Bottle&quot;</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>time_col <span class="ot">=</span> <span class="st">&quot;Time&quot;</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>gas_col <span class="ot">=</span> <span class="st">&quot;Gas&quot;</span></span></code></pre></div>
+</div>
+<div id="importing-pressure-data" class="section level1">
+<h1>Importing Pressure Data</h1>
+<p>rumenGP can also import pressure measurements and convert them to gas
+volume automatically.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>manual_pressure <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">Bottle =</span> <span class="fu">rep</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    <span class="dv">1</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    <span class="dv">10</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  ),</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="at">Time =</span> <span class="fu">c</span>(</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>    <span class="dv">0</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>    <span class="dv">2</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>    <span class="dv">4</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>    <span class="dv">6</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>    <span class="dv">8</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    <span class="dv">12</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>    <span class="dv">16</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>    <span class="dv">24</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>    <span class="dv">36</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>    <span class="dv">48</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>  ),</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>  <span class="at">PSI =</span> <span class="fu">c</span>(</span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>    <span class="dv">0</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>    <span class="fl">0.2</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>    <span class="fl">0.5</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>    <span class="fl">0.8</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a>    <span class="fl">1.2</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a>    <span class="fl">1.8</span>,</span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a>    <span class="fl">2.5</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a>    <span class="fl">3.2</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a>    <span class="fl">4.0</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a>    <span class="fl">4.5</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a>  )</span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a>)</span></code></pre></div>
+<p>Convert pressure measurements:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>gp_pressure <span class="ot">&lt;-</span> <span class="fu">as_rumen_gp</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="at">data =</span> manual_pressure,</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="at">head_col =</span> <span class="st">&quot;Bottle&quot;</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="at">time_col =</span> <span class="st">&quot;Time&quot;</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  <span class="at">pressure_unit =</span> <span class="st">&quot;psi&quot;</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>  <span class="at">headspace_volume =</span> <span class="dv">60</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>)</span></code></pre></div>
+<p>Inspect the resulting gas volumes:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">head</span>(gp_pressure)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt;   Head Bottle Rep Treatment Time_h    Gas_mL</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; 1    1      1   1   Unknown      0 0.0000000</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; 2    1      1   1   Unknown      2 0.7140855</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; 3    1      1   1   Unknown      4 1.7852138</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; 4    1      1   1   Unknown      6 2.8563421</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt; 5    1      1   1   Unknown      8 4.2845132</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; 6    1      1   1   Unknown     12 6.4267698</span></span></code></pre></div>
+</div>
+<div id="pressure-units" class="section level1">
+<h1>Pressure Units</h1>
+<p>Currently supported pressure units are:</p>
+<pre class="text"><code>psi
+kpa</code></pre>
+<p>Examples:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>pressure_unit <span class="ot">=</span> <span class="st">&quot;psi&quot;</span></span></code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>pressure_unit <span class="ot">=</span> <span class="st">&quot;kpa&quot;</span></span></code></pre></div>
+</div>
+<div id="headspace-volume" class="section level1">
+<h1>Headspace Volume</h1>
+<p>Pressure measurements require information about headspace volume.</p>
+<p>Headspace volume is the gas volume available inside the bottle and is
+not necessarily the same as the total bottle volume.</p>
+<p>Example:</p>
+<pre class="text"><code>Bottle volume = 125 mL
+
+Liquid volume = 75 mL
+
+Headspace volume = 50 mL</code></pre>
+<p>When pressure data are imported:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>headspace_volume <span class="ot">=</span> <span class="dv">50</span></span></code></pre></div>
+<p>should represent the headspace volume, not the total bottle
+capacity.</p>
+</div>
+<div id="headspace-units" class="section level1">
+<h1>Headspace Units</h1>
+<p>Supported headspace units:</p>
+<pre class="text"><code>mL
+L</code></pre>
+<p>Examples:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>headspace_unit <span class="ot">=</span> <span class="st">&quot;mL&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>headspace_unit <span class="ot">=</span> <span class="st">&quot;L&quot;</span></span></code></pre></div>
+</div>
+<div id="negative-pressure-values" class="section level1">
+<h1>Negative Pressure Values</h1>
+<p>Pressure datasets occasionally contain slightly negative readings
+caused by sensor variation.</p>
+<p>These values can be automatically corrected.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>negative_pressure <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="at">Bottle =</span> <span class="fu">c</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>  ),</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>  <span class="at">Time =</span> <span class="fu">c</span>(</span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">8</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>  ),</span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>  <span class="at">PSI =</span> <span class="fu">c</span>(</span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.5</span>,</span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a>    <span class="fl">0.2</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a>    <span class="fl">1.0</span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a>  )</span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>gp_negative <span class="ot">&lt;-</span> <span class="fu">as_rumen_gp</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="at">data =</span> negative_pressure,</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>  <span class="at">head_col =</span> <span class="st">&quot;Bottle&quot;</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>  <span class="at">time_col =</span> <span class="st">&quot;Time&quot;</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>  <span class="at">pressure_unit =</span> <span class="st">&quot;psi&quot;</span>,</span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a>  <span class="at">headspace_volume =</span> <span class="dv">60</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>  <span class="at">zero_negative_pressure =</span> <span class="cn">TRUE</span></span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="validation" class="section level1">
+<h1>Validation</h1>
+<p>Imported datasets can be validated using:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">validate_ankom</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>  gp</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co">#&gt;   Head Bottle Rep Treatment Time_h Gas_mL</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="co">#&gt; 1    1      1   1   Control      0      0</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co">#&gt; 2    1      1   1   Control      4     20</span></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="co">#&gt; 3    1      1   1   Control      8     40</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="co">#&gt; 4    2      2   1      Corn      0      0</span></span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a><span class="co">#&gt; 5    2      2   1      Corn      4     35</span></span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a><span class="co">#&gt; 6    2      2   1      Corn      8     60</span></span></code></pre></div>
+<p>The function checks:</p>
+<ul>
+<li>Required columns</li>
+<li>Missing values</li>
+<li>Duplicate observations</li>
+<li>Time ordering</li>
+<li>Dataset consistency</li>
+</ul>
+</div>
+<div id="fitting-a-model" class="section level1">
+<h1>Fitting a Model</h1>
+<p>Once imported, manually collected datasets can be analyzed exactly
+like ANKOM datasets.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fit_groot</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  gp</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>)</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span></code></pre></div>
+<p>Inspect results:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="co">#&gt; Groot model summary</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="co">#&gt; -------------------</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="co">#&gt; Total bottles: 2</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="co">#&gt; Successful fits: 2</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="co">#&gt; Failed fits: 0</span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co">#&gt; Low R-squared (&lt; 0.90): 2</span></span></code></pre></div>
+</div>
+<div id="compare-models" class="section level1">
+<h1>Compare Models</h1>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">compare_models</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="at">Groot =</span> <span class="fu">fit_groot</span>(gp),</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>  <span class="at">Brody =</span> <span class="fu">fit_brody</span>(gp),</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>  <span class="at">Gompertz =</span> <span class="fu">fit_gompertz</span>(gp)</span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>)</span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb24-22"><a href="#cb24-22" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb24-23"><a href="#cb24-23" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb24-24"><a href="#cb24-24" tabindex="-1"></a></span>
+<span id="cb24-25"><a href="#cb24-25" tabindex="-1"></a>comparison</span>
+<span id="cb24-26"><a href="#cb24-26" tabindex="-1"></a><span class="co">#&gt;      Model Bottles Successful_Fits Failed_Fits    Mean_R2   Mean_RMSE</span></span>
+<span id="cb24-27"><a href="#cb24-27" tabindex="-1"></a><span class="co">#&gt; 1    Groot       2               2           0 -0.8504581 15.39025685</span></span>
+<span id="cb24-28"><a href="#cb24-28" tabindex="-1"></a><span class="co">#&gt; 2    Brody       2               2           0  0.9999943  0.02766102</span></span>
+<span id="cb24-29"><a href="#cb24-29" tabindex="-1"></a><span class="co">#&gt; 3 Gompertz       2               0           2        NaN         NaN</span></span>
+<span id="cb24-30"><a href="#cb24-30" tabindex="-1"></a><span class="co">#&gt;       Mean_RSS  Mean_AIC  Mean_BIC Lambda_Boundary</span></span>
+<span id="cb24-31"><a href="#cb24-31" tabindex="-1"></a><span class="co">#&gt; 1 5.033062e+02  24.48171  19.25430               0</span></span>
+<span id="cb24-32"><a href="#cb24-32" tabindex="-1"></a><span class="co">#&gt; 2 4.590791e-03 -91.55179 -95.15734               0</span></span>
+<span id="cb24-33"><a href="#cb24-33" tabindex="-1"></a><span class="co">#&gt; 3          NaN       NaN       NaN               0</span></span></code></pre></div>
+</div>
+<div id="common-errors" class="section level1">
+<h1>Common Errors</h1>
+<div id="no-gas-or-pressure-supplied" class="section level2">
+<h2>No gas or pressure supplied</h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">as_rumen_gp</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="at">head_col =</span> <span class="st">&quot;Bottle&quot;</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>  <span class="at">time_col =</span> <span class="st">&quot;Time&quot;</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Produces:</p>
+<pre class="text"><code>Provide either gas_col or pressure_col.</code></pre>
+</div>
+<div id="both-gas-and-pressure-supplied" class="section level2">
+<h2>Both gas and pressure supplied</h2>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">as_rumen_gp</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  <span class="at">gas_col =</span> <span class="st">&quot;Gas&quot;</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Produces:</p>
+<pre class="text"><code>Provide only one of gas_col or pressure_col.</code></pre>
+</div>
+<div id="missing-headspace-volume" class="section level2">
+<h2>Missing headspace volume</h2>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">as_rumen_gp</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>)</span></code></pre></div>
+<p>Produces:</p>
+<pre class="text"><code>headspace_volume must be supplied when pressure_col is used.</code></pre>
+</div>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<p>The <code>as_rumen_gp()</code> function makes it possible to use
+rumenGP with:</p>
+<ul>
+<li>Manual gas-volume datasets</li>
+<li>Pressure-based datasets</li>
+<li>Non-ANKOM experiments</li>
+</ul>
+<p>Once imported, all datasets become standard <code>rumen_gp</code>
+objects and can be analyzed using the full modeling framework.</p>
+</div>
+<div id="next-steps" class="section level1">
+<h1>Next Steps</h1>
+<p>See:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>?fit_custom</span></code></pre></div>
+<p>for information about fitting custom kinetic models.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

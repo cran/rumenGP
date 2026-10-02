@@ -1,0 +1,623 @@
+
+---
+title: "Model Equations Reference"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Model Equations Reference}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+rumenGP implements a collection of nonlinear models for
+describing cumulative gas production during in vitro rumen
+fermentation.
+
+This vignette summarizes:
+
+- Model equations
+- Parameter definitions
+- Biological interpretation
+- Advantages
+- Limitations
+- Typical applications
+
+Throughout this vignette:
+
+\[
+V(t)
+\]
+
+represents cumulative gas production at time:
+
+\[
+t
+\]
+
+---
+
+# Single-Pool Models
+
+## Brody
+
+### Equation
+
+\[
+V(t)
+=
+A
+\left(
+1
+-
+b
+e^{-kt}
+\right)
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| A | Asymptotic gas production |
+| b | Integration constant |
+| k | Fractional rate constant |
+
+### Advantages
+
+- Simple and robust
+- Stable convergence
+- Easy interpretation
+
+### Limitations
+
+- No lag parameter
+- Limited flexibility
+
+---
+
+## Ørskov and McDonald
+
+### Equation
+
+\[
+V(t)
+=
+VF
++
+b
+\left(
+1-e^{-kt}
+\right)
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| VF | Initial gas volume (intercept) |
+| b | Fermentable fraction |
+| k | Fractional rate constant |
+
+### Advantages
+
+- Widely used in ruminant nutrition
+- Simple biological interpretation
+
+### Limitations
+
+- No explicit lag phase
+
+---
+
+## EXP0
+
+### Equation
+
+\[
+V(t)
+=
+V_f
+\left(
+1-e^{-kt}
+\right)
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| Vf | Asymptotic gas production |
+| k | Fractional rate constant |
+
+### Advantages
+
+- Very simple
+- Fast convergence
+
+### Limitations
+
+- No lag phase
+- Limited flexibility
+
+---
+
+## EXPL
+
+### Equation
+
+\[
+V(t)
+=
+V_f
+\left(
+1-e^{-k(t-\lambda)}
+\right)
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| Vf | Asymptotic gas production |
+| k | Fractional rate constant |
+| λ | Lag time |
+
+### Advantages
+
+- Explicit lag parameter
+- Easy interpretation
+
+### Limitations
+
+- Less flexible than sigmoidal models
+
+---
+
+## Gompertz
+
+### Equation
+
+\[
+V(t)
+=
+A
+\exp
+\left[
+-
+\exp
+\left(
+\frac{\mu e}{A}
+(\lambda-t)
++
+1
+\right)
+\right]
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| A | Asymptotic gas production |
+| μ | Maximum gas production rate |
+| λ | Lag time |
+
+### Advantages
+
+- Explicit lag and growth-rate parameters
+- Excellent flexibility
+- Widely used in gas production studies
+
+### Limitations
+
+- More complex than exponential models
+
+---
+
+## Logistic
+
+### Equation
+
+\[
+V(t)
+=
+\frac{A}
+{
+1+\exp
+\left[
+2+
+4k(\lambda-t)
+\right]
+}
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| A | Asymptotic gas production |
+| k | Fractional rate constant |
+| λ | Lag time |
+
+### Advantages
+
+- Sigmoidal behavior
+- Stable convergence
+
+### Limitations
+
+- Assumes symmetric sigmoid shape
+
+---
+
+## Mitscherlich
+
+### Equation
+
+\[
+V(t)
+=
+A
+\left[
+1
+-
+\exp
+\left(
+-k(t-\lambda)
+-
+d
+\left(
+\sqrt{t+0.001}
+-
+\sqrt{\lambda+0.001}
+\right)
+\right)
+\right]
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| A | Asymptotic gas production |
+| k | Fractional rate constant |
+| d | Shape parameter |
+| λ | Lag time |
+
+### Advantages
+
+- Flexible curve shape
+- Explicit lag phase
+
+### Limitations
+
+- More parameters
+- Increased parameter correlation
+
+---
+
+## LE0 (Logistic-Exponential Without Lag)
+
+### Equation
+
+\[
+V(t)
+=
+\frac{
+A
+\left(
+1-e^{-kt}
+\right)
+}
+{
+1+\exp
+\left[
+\ln\left(\frac{1}{d}\right)-kt
+\right]
+}
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| A | Asymptotic gas production |
+| k | Fractional rate constant |
+| d | Shape parameter |
+
+### Advantages
+
+- Flexible shape
+- No lag parameter required
+
+### Limitations
+
+- More complex than simple exponential models
+
+---
+
+## LEL (Logistic-Exponential With Lag)
+
+### Equation
+
+\[
+V(t)
+=
+\frac{
+A
+\left(
+1-e^{-k(t-\lambda)}
+\right)
+}
+{
+1+\exp
+\left[
+\ln\left(\frac{1}{d}\right)
+-
+k(t-\lambda)
+\right]
+}
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| A | Asymptotic gas production |
+| k | Fractional rate constant |
+| d | Shape parameter |
+| λ | Lag time |
+
+### Advantages
+
+- Flexible shape
+- Explicit lag phase
+
+### Limitations
+
+- Additional complexity may affect convergence
+
+---
+
+## Michaelis-Menten
+
+### Equation
+
+\[
+V(t)
+=
+A
+\frac{t^{c}}
+{
+t^{c}+K^{c}
+}
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| A | Asymptotic gas production |
+| K | Half-time parameter |
+| c | Shape parameter |
+
+### Advantages
+
+- Flexible
+- Strong biological interpretation
+
+### Limitations
+
+- Shape parameter may be difficult to interpret biologically
+
+---
+
+## Groot
+
+### Equation
+
+\[
+V(t)
+=
+\frac{VF}
+{
+1+\left(\frac{b}{t}\right)^k
+}
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| VF | Asymptotic gas production |
+| b | Half-time parameter |
+| k | Shape parameter |
+
+### Advantages
+
+- Excellent flexibility
+- Widely used in rumen gas production studies
+
+### Limitations
+
+- Requires positive incubation times
+
+---
+
+# Multi-Pool Models
+
+## Dual Logistic
+
+### Equation
+
+\[
+V(t)
+=
+\frac{V_{1F}}
+{
+1+\exp
+\left[
+2-4k_1(t-\lambda)
+\right]
+}
++
+\frac{V_{2F}}
+{
+1+\exp
+\left[
+2-4k_2(t-\lambda)
+\right]
+}
+\]
+
+### Parameters
+
+| Parameter | Description |
+|------------|------------|
+| V1F | Gas volume from rapidly fermentable fraction |
+| V2F | Gas volume from slowly fermentable fraction |
+| k1 | Rate constant of rapid fraction |
+| k2 | Rate constant of slow fraction |
+| λ | Lag time |
+
+### Advantages
+
+- Represents multiple fermentation pools
+- Biologically meaningful decomposition
+
+### Limitations
+
+- More parameters
+- Greater convergence challenges
+
+---
+
+# Model Equivalence
+
+## Groot and Michaelis-Menten
+
+The Groot and generalized Michaelis-Menten models are
+mathematically equivalent.
+
+Parameter correspondence:
+
+\[
+VF = A
+\]
+
+\[
+b = K
+\]
+
+\[
+k = c
+\]
+
+Both formulations produce identical fitted values and
+model diagnostics when convergence is achieved.
+
+Researchers may select either model according to the
+terminology commonly used in their field.
+
+---
+
+# Choosing a Model
+
+A practical progression is:
+
+## Simple Models
+
+- EXP0
+- Brody
+- Ørskov and McDonald
+
+Use when:
+
+- Data show monotonic behavior
+- Lag is negligible
+- Simplicity is preferred
+
+---
+
+## Lag Models
+
+- EXPL
+- Logistic
+- Gompertz
+- Mitscherlich
+
+Use when:
+
+- A lag phase is biologically expected
+- Initial microbial adaptation is important
+
+---
+
+## Flexible Sigmoidal Models
+
+- LE0
+- LEL
+- Groot
+- Michaelis-Menten
+
+Use when:
+
+- Fermentation profiles display sigmoidal behavior
+- Greater flexibility is needed
+
+---
+
+## Multi-Pool Models
+
+- Dual Logistic
+
+Use when:
+
+- Fast and slow fermenting fractions are expected
+- Substrate heterogeneity is important
+
+---
+
+## Custom Models
+
+Researchers can also define their own equations using:
+
+```r
+fit_custom()
+```
+
+See:
+
+```r
+vignette("custom-models")
+```
+
+for additional details.
+
+---
+
+# Summary
+
+rumenGP provides a diverse collection of nonlinear
+kinetic models ranging from simple exponential
+equations to flexible multi-pool formulations.
+
+Model choice should be guided by:
+
+- Biological plausibility
+- Goodness of fit
+- Parameter interpretability
+- Convergence stability
+- Research objectives
+
+Researchers are encouraged to compare multiple models
+before selecting a final representation of fermentation
+kinetics.

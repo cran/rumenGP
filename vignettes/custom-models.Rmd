@@ -1,0 +1,418 @@
+
+---
+title: "Building Custom Kinetic Models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Building Custom Kinetic Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+Most rumen gas production studies rely on a predefined
+set of kinetic models.
+
+However, researchers often wish to:
+
+- Test novel equations
+- Compare alternative model structures
+- Develop new biological interpretations
+- Reproduce models from the literature
+
+rumenGP provides `fit_custom()` for fitting
+user-defined nonlinear kinetic models.
+
+Custom models integrate directly with:
+
+- `summary()`
+- `plot_fit()`
+- `plot_residuals()`
+- `compare_models()`
+
+This vignette demonstrates how to build,
+fit, and evaluate custom models.
+
+```{r}
+library(rumenGP)
+```
+
+# Example Dataset
+
+Create a simple gas-production dataset.
+
+```{r}
+manual_volume <- data.frame(
+
+  Bottle = c(
+    rep(1, 10),
+    rep(2, 10)
+  ),
+
+  Treatment = c(
+    rep("Control", 10),
+    rep("Corn", 10)
+  ),
+
+  Time = rep(
+    c(
+      0, 2, 4, 6, 8,
+      12, 16, 24, 36, 48
+    ),
+    2
+  ),
+
+  Gas = c(
+
+    0, 5, 12, 20, 28,
+    40, 55, 75, 90, 100,
+
+    0, 8, 18, 30, 42,
+    58, 72, 95, 110, 120
+
+  )
+
+)
+```
+
+Convert to a `rumen_gp` object.
+
+```{r}
+gp <- as_rumen_gp(
+  data = manual_volume,
+  head_col = "Bottle",
+  treatment_col = "Treatment",
+  time_col = "Time",
+  gas_col = "Gas"
+)
+```
+
+# Example 1: Simple Exponential Model
+
+Consider the equation:
+
+\[
+Gas(t) =
+A
+\left(
+1 -
+e^{-kt}
+\right)
+\]
+
+where:
+
+- A = asymptotic gas production
+- k = fractional rate constant
+
+Fit the model:
+
+```{r}
+exp_fit <- fit_custom(
+
+  data = gp,
+
+  formula =
+    Gas_mL ~
+      A *
+      (
+        1 -
+          exp(
+            -k * Time_h
+          )
+      ),
+
+  start = list(
+    A = 120,
+    k = 0.05
+  ),
+
+  lower = c(
+    A = 0,
+    k = 0
+  ),
+
+  model_name =
+    "Simple Exponential"
+
+)
+```
+
+Inspect results:
+
+```{r}
+summary(exp_fit)
+```
+
+Estimated parameters:
+
+```{r}
+exp_fit$parameters
+```
+
+# Example 2: Hyperbolic Model
+
+Consider:
+
+\[
+Gas(t)
+=
+A
+\left(
+\frac{t}
+{
+t + K
+}
+\right)
+\]
+
+where:
+
+- A = asymptotic gas production
+- K = half-time parameter
+
+Fit the model:
+
+```{r}
+hyperbolic_fit <- fit_custom(
+
+  data = gp,
+
+  formula =
+    Gas_mL ~
+      A *
+      (
+        Time_h /
+        (
+          Time_h + K
+        )
+      ),
+
+  start = list(
+    A = 150,
+    K = 10
+  ),
+
+  lower = c(
+    A = 0,
+    K = 0
+  ),
+
+  model_name =
+    "Hyperbolic"
+
+)
+```
+
+Inspect results:
+
+```{r}
+summary(hyperbolic_fit)
+```
+
+```{r}
+hyperbolic_fit$parameters
+```
+
+# Example 3: Richards Model
+
+The Richards model is a flexible
+four-parameter sigmoidal equation.
+
+\[
+Gas(t)
+=
+VF
+\left(
+1 -
+b
+e^{-kt}
+\right)^m
+\]
+
+where:
+
+- VF = maximum gas production
+- b = interaction constant
+- k = fractional rate constant
+- m = shape parameter
+
+Fit the model:
+
+```{r}
+richards_fit <- fit_custom(
+
+  data = gp,
+
+  formula =
+    Gas_mL ~
+      VF *
+      (
+        1 -
+          b *
+          exp(
+            -k * Time_h
+          )
+      )^m,
+
+  start = list(
+    VF = max(gp$Gas_mL) * 1.1,
+    b = 0.9,
+    k = 0.05,
+    m = 1
+  ),
+
+  lower = c(
+    VF = 0,
+    b = 0,
+    k = 0,
+    m = 0
+  ),
+
+  upper = c(
+    VF = Inf,
+    b = 1,
+    k = Inf,
+    m = 10
+  ),
+
+  model_name =
+    "Richards"
+
+)
+```
+
+Review diagnostics:
+
+```{r}
+richards_fit$diagnostics
+```
+
+Review parameter estimates:
+
+```{r}
+richards_fit$parameters
+```
+
+# Comparing Custom and Built-in Models
+
+Custom models can be compared directly
+with built-in models.
+
+Fit built-in models:
+
+```{r}
+groot_fit <- fit_groot(gp)
+
+brody_fit <- fit_brody(gp)
+```
+
+Compare models:
+
+```{r}
+compare_models(
+
+  Groot = groot_fit,
+
+  Brody = brody_fit,
+
+  Hyperbolic = hyperbolic_fit
+
+)
+```
+
+# Visualizing Custom Models
+
+Custom models support the standard
+visualization workflow.
+
+Plot observed and predicted values:
+
+```{r, eval = FALSE}
+plot_fit(
+  hyperbolic_fit,
+  head = 1
+)
+```
+
+Plot residuals:
+
+```{r, eval = FALSE}
+plot_residuals(
+  hyperbolic_fit,
+  head = 1
+)
+```
+
+# Choosing Starting Values
+
+Good starting values improve convergence.
+
+Recommendations:
+
+- Set asymptotes slightly above observed maxima
+- Use biologically reasonable rate constants
+- Start simple before adding parameters
+
+Example:
+
+```r
+start = list(
+  A = 120,
+  k = 0.05
+)
+```
+
+# Using Bounds
+
+Bounds can prevent unrealistic estimates.
+
+Example:
+
+```r
+lower = c(
+  A = 0,
+  k = 0
+)
+
+upper = c(
+  A = Inf,
+  k = Inf
+)
+```
+
+# Best Practices
+
+When proposing a new kinetic model:
+
+1. Use biologically meaningful parameters.
+2. Choose reasonable starting values.
+3. Apply parameter bounds when appropriate.
+4. Compare against established models.
+5. Evaluate both fit quality and parameter interpretability.
+
+# Summary
+
+The `fit_custom()` framework allows
+researchers to evaluate new kinetic models
+without modifying package source code.
+
+Custom models can be:
+
+- fitted,
+- visualized,
+- compared,
+- ranked,
+
+using exactly the same workflow as built-in models.
+
+This makes rumenGP a flexible platform for
+developing and evaluating novel rumen gas
+production equations.
