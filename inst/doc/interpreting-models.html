@@ -392,7 +392,8 @@ the substrate being studied.</p>
 <pre class="text"><code>k
 k1
 k2
-mu</code></pre>
+mu
+r</code></pre>
 <p>These parameters describe how rapidly gas production approaches the
 asymptote.</p>
 <p>Example:</p>
@@ -408,14 +409,18 @@ than Treatment B.</code></pre>
 <ul>
 <li>Faster microbial degradation</li>
 <li>Greater substrate accessibility</li>
+<li>More rapid attainment of asymptotic gas production</li>
 </ul>
+<p>In Burr XII and Inverse Paralogistic models, the parameter:</p>
+<pre class="text"><code>r</code></pre>
+<p>serves a similar role.</p>
 <hr />
 </div>
 <div id="lag-time" class="section level1">
 <h1>Lag Time</h1>
 <p>Common parameter name:</p>
 <pre class="text"><code>lambda</code></pre>
-<p>or:</p>
+<p>or</p>
 <p><span class="math display">\[
 \lambda
 \]</span></p>
@@ -442,7 +447,7 @@ K</code></pre>
 <p>Used in:</p>
 <ul>
 <li>Groot</li>
-<li>Michaelis-Menten</li>
+<li>Generalized Michaelis-Menten</li>
 </ul>
 <p>These parameters determine the time required to achieve approximately
 half of the asymptotic gas production.</p>
@@ -457,9 +462,12 @@ is achieved after 12 hours.</code></pre>
 <div id="shape-parameters" class="section level1">
 <h1>Shape Parameters</h1>
 <p>Common parameter names:</p>
-<pre class="text"><code>c
+<pre class="text"><code>a
+c
 d
-m</code></pre>
+k
+m
+p</code></pre>
 <p>Shape parameters modify the curvature of the fermentation
 profile.</p>
 <p>Interpretation:</p>
@@ -469,7 +477,34 @@ accelerates and decelerates through time.</code></pre>
 biological interpretation.</p>
 <p>They are usually considered:</p>
 <pre class="text"><code>Empirical flexibility parameters.</code></pre>
+<p>Examples:</p>
+<div id="groot" class="section level3">
+<h3>Groot</h3>
+<pre class="text"><code>k</code></pre>
+<p>controls curve steepness.</p>
+</div>
+<div id="generalized-michaelis-menten" class="section level3">
+<h3>Generalized Michaelis-Menten</h3>
+<pre class="text"><code>c</code></pre>
+<p>controls curve shape and steepness.</p>
+</div>
+<div id="log-logistic" class="section level3">
+<h3>Log-logistic</h3>
+<pre class="text"><code>a</code></pre>
+<p>controls curve shape and steepness.</p>
+</div>
+<div id="burr-xii" class="section level3">
+<h3>Burr XII</h3>
+<pre class="text"><code>a
+p</code></pre>
+<p>jointly influence asymmetry, curvature, and inflection behavior.</p>
+</div>
+<div id="inverse-paralogistic" class="section level3">
+<h3>Inverse Paralogistic</h3>
+<pre class="text"><code>a</code></pre>
+<p>controls the overall shape of the fermentation profile.</p>
 <hr />
+</div>
 </div>
 <div id="interpreting-dual-pool-models" class="section level1">
 <h1>Interpreting Dual-Pool Models</h1>
@@ -530,7 +565,12 @@ model.</p>
 <p>Interpretation:</p>
 <pre class="text"><code>99% of variation is explained by
 the fitted model.</code></pre>
+<div id="important" class="section level3">
+<h3>Important</h3>
+<p>A high R-squared does not guarantee that the model is biologically
+meaningful or scientifically preferable.</p>
 <hr />
+</div>
 </div>
 <div id="rmse" class="section level1">
 <h1>RMSE</h1>
@@ -568,6 +608,11 @@ AIC
 +
 Model complexity</code></pre>
 <p>Smaller values are preferred.</p>
+<p>AIC is especially useful when:</p>
+<ul>
+<li>Comparing non-nested models</li>
+<li>Comparing models with different numbers of parameters</li>
+</ul>
 <hr />
 </div>
 <div id="bic" class="section level1">
@@ -579,6 +624,9 @@ BIC
 <p>Similar to AIC but applies a stronger penalty for additional
 parameters.</p>
 <p>Smaller values are preferred.</p>
+<p>Because BIC penalizes complexity more heavily, it often favors
+simpler models unless the additional parameters substantially improve
+fit.</p>
 <hr />
 </div>
 <div id="why-higher-r²-does-not-always-mean-a-better-model" class="section level1">
@@ -619,6 +667,146 @@ parameters.</p>
 model selection.</code></pre>
 <hr />
 </div>
+<div id="understanding-model-equivalence" class="section level1">
+<h1>Understanding Model Equivalence</h1>
+<p>Several gas-production models are mathematically equivalent despite
+using different parameter names.</p>
+<div id="groot-1" class="section level3">
+<h3>Groot</h3>
+<p><span class="math display">\[
+V(t)
+=
+\frac{VF}
+{
+1+\left(\frac{b}{t}\right)^k
+}
+\]</span></p>
+</div>
+<div id="generalized-michaelis-menten-1" class="section level3">
+<h3>Generalized Michaelis-Menten</h3>
+<p><span class="math display">\[
+V(t)
+=
+A
+\frac{t^c}
+{
+t^c + K^c
+}
+\]</span></p>
+</div>
+<div id="log-logistic-1" class="section level3">
+<h3>Log-logistic</h3>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\frac{(rt)^a}
+{
+1+(rt)^a
+}
+\]</span></p>
+<p>Parameter correspondence:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Groot</th>
+<th>Generalized Michaelis-Menten</th>
+<th>Log-logistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VF</td>
+<td>A</td>
+<td>VF</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td>K</td>
+<td>1/r</td>
+</tr>
+<tr class="odd">
+<td>k</td>
+<td>c</td>
+<td>a</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore:</p>
+<pre class="text"><code>Groot
+=
+Generalized Michaelis-Menten
+=
+Log-logistic</code></pre>
+<p>These formulations produce identical:</p>
+<ul>
+<li>Predicted values</li>
+<li>Residuals</li>
+<li>RSS</li>
+<li>RMSE</li>
+<li>R²</li>
+<li>AIC</li>
+<li>BIC</li>
+</ul>
+<p>when equivalent parameter transformations are used.</p>
+<p>Researchers may therefore choose the parameterization most familiar
+within their field.</p>
+<hr />
+</div>
+</div>
+<div id="interpreting-burr-xii-and-inverse-paralogistic-models" class="section level1">
+<h1>Interpreting Burr XII and Inverse Paralogistic Models</h1>
+<div id="burr-xii-1" class="section level2">
+<h2>Burr XII</h2>
+<p>Equation:</p>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\left[
+1
+-
+\left(
+1+(rt)^a
+\right)^{-p}
+\right]
+\]</span></p>
+<p>Key interpretation:</p>
+<ul>
+<li>VF determines asymptotic gas production</li>
+<li>r controls fermentation speed</li>
+<li>a and p jointly control shape and asymmetry</li>
+</ul>
+<p>The model is highly flexible and can adapt to many fermentation
+profiles.</p>
+<p>However, this flexibility may increase the risk of overfitting when
+datasets are small.</p>
+<hr />
+</div>
+<div id="inverse-paralogistic-1" class="section level2">
+<h2>Inverse Paralogistic</h2>
+<p>Equation:</p>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\left[
+1
++
+(rt)^{-a}
+\right]^{-a}
+\]</span></p>
+<p>Key interpretation:</p>
+<ul>
+<li>VF represents asymptotic gas production</li>
+<li>r influences production speed</li>
+<li>a controls curve shape and steepness</li>
+</ul>
+<p>This model can describe diverse sigmoidal profiles while retaining a
+relatively simple parameter structure.</p>
+<hr />
+</div>
+</div>
 <div id="model-selection-strategy" class="section level1">
 <h1>Model Selection Strategy</h1>
 <p>Recommended workflow:</p>
@@ -632,9 +820,12 @@ model selection.</code></pre>
 
 5. Examine residual plots
 
-6. Consider biological interpretation
+6. Consider parameter plausibility
 
-7. Select the most appropriate model</code></pre>
+7. Consider biological interpretation
+
+8. Select the most appropriate model</code></pre>
+<p>No single model should be considered universally superior.</p>
 <hr />
 </div>
 <div id="interpreting-failed-fits" class="section level1">
@@ -655,6 +846,7 @@ Inappropriate model structure</code></pre>
 <li>Apply bounds</li>
 <li>Try simpler models</li>
 <li>Compare alternative equations</li>
+<li>Consider biologically meaningful parameter ranges</li>
 </ul>
 <hr />
 </div>
@@ -668,6 +860,7 @@ meaningful model.</p>
 <li>Parameter interpretation</li>
 <li>Stability of estimates</li>
 <li>Reproducibility</li>
+<li>Experimental context</li>
 </ul>
 <p>alongside fit statistics.</p>
 <hr />
@@ -707,20 +900,25 @@ meaningful model.</p>
 <h2>Use Flexible Sigmoidal Models When</h2>
 <ul>
 <li>Fermentation profiles are complex</li>
+<li>Greater flexibility is desired</li>
+<li>Multiple candidate models are being compared</li>
 </ul>
 <p>Examples:</p>
 <ul>
 <li>Groot</li>
-<li>Michaelis-Menten</li>
+<li>Generalized Michaelis-Menten</li>
+<li>Burr XII</li>
+<li>Inverse Paralogistic</li>
 <li>LE0</li>
 <li>LEL</li>
 </ul>
 <hr />
 </div>
-<div id="use-dual-pool-models-when" class="section level2">
-<h2>Use Dual-Pool Models When</h2>
+<div id="use-multi-pool-models-when" class="section level2">
+<h2>Use Multi-Pool Models When</h2>
 <ul>
 <li>Rapid and slow fractions are biologically relevant</li>
+<li>Substrate heterogeneity is important</li>
 </ul>
 <p>Example:</p>
 <ul>
@@ -738,9 +936,30 @@ meaningful model.</p>
 <li>Parameter interpretability</li>
 <li>Robust convergence</li>
 </ul>
+<p>rumenGP provides both classical and modern approaches to
+gas-production modeling, including:</p>
+<ul>
+<li>Brody</li>
+<li>Ørskov and McDonald</li>
+<li>EXP0</li>
+<li>EXPL</li>
+<li>Gompertz</li>
+<li>Logistic</li>
+<li>Mitscherlich</li>
+<li>LE0</li>
+<li>LEL</li>
+<li>Groot</li>
+<li>Generalized Michaelis-Menten</li>
+<li>Dual Logistic</li>
+<li>Burr XII</li>
+<li>Inverse Paralogistic</li>
+</ul>
+<p>In addition, the Log-logistic formulation is already represented
+mathematically through the existing Groot and generalized
+Michaelis-Menten parameterizations.</p>
 <p>Researchers are encouraged to fit multiple models and evaluate both
 statistical and biological performance before selecting a final
-model.</p>
+representation of fermentation kinetics.</p>
 </div>
 
 

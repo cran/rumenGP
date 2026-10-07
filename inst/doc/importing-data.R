@@ -11,8 +11,8 @@ library(rumenGP)
 manual_volume <- data.frame(
 
   Bottle = c(
-    1,1,1,
-    2,2,2
+    1, 1, 1,
+    2, 2, 2
   ),
 
   Treatment = c(
@@ -25,13 +25,13 @@ manual_volume <- data.frame(
   ),
 
   Time = c(
-    0,4,8,
-    0,4,8
+    0, 4, 8,
+    0, 4, 8
   ),
 
   Gas = c(
-    0,20,40,
-    0,35,60
+    0, 20, 40,
+    0, 35, 60
   )
 
 )
@@ -111,11 +111,11 @@ head(gp_pressure)
 negative_pressure <- data.frame(
 
   Bottle = c(
-    1,1,1
+    1, 1, 1
   ),
 
   Time = c(
-    0,4,8
+    0, 4, 8
   ),
 
   PSI = c(
@@ -151,23 +151,38 @@ validate_ankom(
 )
 
 ## -----------------------------------------------------------------------------
-fit <- fit_groot(
-  gp
-)
+groot_fit <- fit_groot(gp)
+
+mm_fit <- fit_mm(gp)
+
+burr_fit <- fit_burr_xii(gp)
+
+inverse_paralogistic_fit <-
+  fit_inverse_paralogistic(gp)
 
 ## -----------------------------------------------------------------------------
-summary(fit)
+summary(groot_fit)
 
 ## -----------------------------------------------------------------------------
 comparison <- compare_models(
 
   Groot = fit_groot(gp),
 
-  Brody = fit_brody(gp),
+  MichaelisMenten = fit_mm(gp),
+
+  BurrXII = fit_burr_xii(gp),
+
+  InverseParalogistic =
+    fit_inverse_paralogistic(gp),
 
   Gompertz = fit_gompertz(gp)
 
 )
 
 comparison
+
+## -----------------------------------------------------------------------------
+rank_models(
+  comparison
+)
 

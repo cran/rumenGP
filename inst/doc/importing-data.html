@@ -346,22 +346,27 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>Not all rumen gas production experiments are conducted using the
 ANKOM RF Gas Production System.</p>
 <p>rumenGP provides the function <code>as_rumen_gp()</code> for
-importing manually collected gas-volume data and pressure-based datasets
-into the standard <code>rumen_gp</code> format.</p>
-<p>Once imported, the data can be analyzed using the same modeling,
-visualization, and model-comparison tools available for ANKOM
-experiments.</p>
+importing manually collected gas-volume datasets and pressure-based
+datasets into the standard <code>rumen_gp</code> format.</p>
+<p>Once imported, the data can be analyzed using the same:</p>
+<ul>
+<li>Modeling tools</li>
+<li>Visualization tools</li>
+<li>Diagnostic workflows</li>
+<li>Model-comparison procedures</li>
+</ul>
+<p>available for ANKOM experiments.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rumenGP)</span></code></pre></div>
 </div>
 <div id="importing-gas-volume-data" class="section level1">
-<h1>Importing Gas Volume Data</h1>
-<p>The simplest workflow is to import cumulative gas production
+<h1>Importing Gas-Volume Data</h1>
+<p>The simplest workflow is to import cumulative gas-production
 measurements directly.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>manual_volume <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">Bottle =</span> <span class="fu">c</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span></span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  ),</span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">Treatment =</span> <span class="fu">c</span>(</span>
@@ -374,13 +379,13 @@ measurements directly.</p>
 <span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  ),</span>
 <span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
 <span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  <span class="at">Time =</span> <span class="fu">c</span>(</span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">8</span>,</span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">8</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">8</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">8</span></span>
 <span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  ),</span>
 <span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a></span>
 <span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  <span class="at">Gas =</span> <span class="fu">c</span>(</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">20</span>,<span class="dv">40</span>,</span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">35</span>,<span class="dv">60</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">40</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">35</span>, <span class="dv">60</span></span>
 <span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  )</span>
 <span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a></span>
 <span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>)</span></code></pre></div>
@@ -411,8 +416,8 @@ measurements directly.</p>
 <pre class="text"><code>Bottle identifier
 Incubation time
 Gas production</code></pre>
-<p>These columns can have any names as long as they are specified
-through the function arguments.</p>
+<p>Column names may vary and are specified through function
+arguments.</p>
 <p>For example:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>head_col <span class="ot">=</span> <span class="st">&quot;Bottle&quot;</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>time_col <span class="ot">=</span> <span class="st">&quot;Time&quot;</span></span>
@@ -486,16 +491,16 @@ volume automatically.</p>
 <h1>Pressure Units</h1>
 <p>Currently supported pressure units are:</p>
 <pre class="text"><code>psi
-kpa</code></pre>
+kPa</code></pre>
 <p>Examples:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>pressure_unit <span class="ot">=</span> <span class="st">&quot;psi&quot;</span></span></code></pre></div>
 <p>or</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>pressure_unit <span class="ot">=</span> <span class="st">&quot;kpa&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>pressure_unit <span class="ot">=</span> <span class="st">&quot;kPa&quot;</span></span></code></pre></div>
 </div>
 <div id="headspace-volume" class="section level1">
 <h1>Headspace Volume</h1>
 <p>Pressure measurements require information about headspace volume.</p>
-<p>Headspace volume is the gas volume available inside the bottle and is
+<p>Headspace volume represents the gas space inside the bottle and is
 not necessarily the same as the total bottle volume.</p>
 <p>Example:</p>
 <pre class="text"><code>Bottle volume = 125 mL
@@ -505,7 +510,7 @@ Liquid volume = 75 mL
 Headspace volume = 50 mL</code></pre>
 <p>When pressure data are imported:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>headspace_volume <span class="ot">=</span> <span class="dv">50</span></span></code></pre></div>
-<p>should represent the headspace volume, not the total bottle
+<p>should represent the headspace volume and not the total bottle
 capacity.</p>
 </div>
 <div id="headspace-units" class="section level1">
@@ -520,16 +525,16 @@ L</code></pre>
 <div id="negative-pressure-values" class="section level1">
 <h1>Negative Pressure Values</h1>
 <p>Pressure datasets occasionally contain slightly negative readings
-caused by sensor variation.</p>
+caused by sensor noise or instrument variability.</p>
 <p>These values can be automatically corrected.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>negative_pressure <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="at">Bottle =</span> <span class="fu">c</span>(</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span></span>
 <span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>  ),</span>
 <span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a></span>
 <span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>  <span class="at">Time =</span> <span class="fu">c</span>(</span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">8</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">8</span></span>
 <span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>  ),</span>
 <span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a></span>
 <span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>  <span class="at">PSI =</span> <span class="fu">c</span>(</span>
@@ -559,7 +564,7 @@ caused by sensor variation.</p>
 </div>
 <div id="validation" class="section level1">
 <h1>Validation</h1>
-<p>Imported datasets can be validated using:</p>
+<p>Imported datasets should be validated before model fitting.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">validate_ankom</span>(</span>
 <span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>  gp</span>
 <span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>)</span>
@@ -574,7 +579,7 @@ caused by sensor variation.</p>
 <span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="co">#&gt; 4    2      2   1      Corn      0      0</span></span>
 <span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a><span class="co">#&gt; 5    2      2   1      Corn      4     35</span></span>
 <span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a><span class="co">#&gt; 6    2      2   1      Corn      8     60</span></span></code></pre></div>
-<p>The function checks:</p>
+<p>The validation procedure checks:</p>
 <ul>
 <li>Required columns</li>
 <li>Missing values</li>
@@ -583,21 +588,42 @@ caused by sensor variation.</p>
 <li>Dataset consistency</li>
 </ul>
 </div>
-<div id="fitting-a-model" class="section level1">
-<h1>Fitting a Model</h1>
+<div id="fitting-models" class="section level1">
+<h1>Fitting Models</h1>
 <p>Once imported, manually collected datasets can be analyzed exactly
 like ANKOM datasets.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fit_groot</span>(</span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  gp</span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>)</span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
-<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
-<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
-<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
-<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span></code></pre></div>
-<p>Inspect results:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>groot_fit <span class="ot">&lt;-</span> <span class="fu">fit_groot</span>(gp)</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>mm_fit <span class="ot">&lt;-</span> <span class="fu">fit_mm</span>(gp)</span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a>burr_fit <span class="ot">&lt;-</span> <span class="fu">fit_burr_xii</span>(gp)</span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a>inverse_paralogistic_fit <span class="ot">&lt;-</span></span>
+<span id="cb22-24"><a href="#cb22-24" tabindex="-1"></a>  <span class="fu">fit_inverse_paralogistic</span>(gp)</span>
+<span id="cb22-25"><a href="#cb22-25" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb22-26"><a href="#cb22-26" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb22-27"><a href="#cb22-27" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb22-28"><a href="#cb22-28" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb22-29"><a href="#cb22-29" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb22-30"><a href="#cb22-30" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span></code></pre></div>
+<p>Inspect one fitted model:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">summary</span>(groot_fit)</span>
 <span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="co">#&gt; Groot model summary</span></span>
 <span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="co">#&gt; -------------------</span></span>
@@ -606,90 +632,295 @@ like ANKOM datasets.</p>
 <span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="co">#&gt; Failed fits: 0</span></span>
 <span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co">#&gt; Low R-squared (&lt; 0.90): 2</span></span></code></pre></div>
 </div>
-<div id="compare-models" class="section level1">
-<h1>Compare Models</h1>
+<div id="comparing-models" class="section level1">
+<h1>Comparing Models</h1>
+<p>Model performance can be compared using several goodness-of-fit
+statistics.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">compare_models</span>(</span>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="at">Groot =</span> <span class="fu">fit_groot</span>(gp),</span>
 <span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>  <span class="at">Brody =</span> <span class="fu">fit_brody</span>(gp),</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>  <span class="at">MichaelisMenten =</span> <span class="fu">fit_mm</span>(gp),</span>
 <span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>  <span class="at">Gompertz =</span> <span class="fu">fit_gompertz</span>(gp)</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>  <span class="at">BurrXII =</span> <span class="fu">fit_burr_xii</span>(gp),</span>
 <span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a></span>
-<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>)</span>
-<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
-<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
-<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
-<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
-<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
-<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
-<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
-<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
-<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
-<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
-<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
-<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
-<span id="cb24-22"><a href="#cb24-22" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
-<span id="cb24-23"><a href="#cb24-23" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
-<span id="cb24-24"><a href="#cb24-24" tabindex="-1"></a></span>
-<span id="cb24-25"><a href="#cb24-25" tabindex="-1"></a>comparison</span>
-<span id="cb24-26"><a href="#cb24-26" tabindex="-1"></a><span class="co">#&gt;      Model Bottles Successful_Fits Failed_Fits    Mean_R2   Mean_RMSE</span></span>
-<span id="cb24-27"><a href="#cb24-27" tabindex="-1"></a><span class="co">#&gt; 1    Groot       2               2           0 -0.8504581 15.39025685</span></span>
-<span id="cb24-28"><a href="#cb24-28" tabindex="-1"></a><span class="co">#&gt; 2    Brody       2               2           0  0.9999943  0.02766102</span></span>
-<span id="cb24-29"><a href="#cb24-29" tabindex="-1"></a><span class="co">#&gt; 3 Gompertz       2               0           2        NaN         NaN</span></span>
-<span id="cb24-30"><a href="#cb24-30" tabindex="-1"></a><span class="co">#&gt;       Mean_RSS  Mean_AIC  Mean_BIC Lambda_Boundary</span></span>
-<span id="cb24-31"><a href="#cb24-31" tabindex="-1"></a><span class="co">#&gt; 1 5.033062e+02  24.48171  19.25430               0</span></span>
-<span id="cb24-32"><a href="#cb24-32" tabindex="-1"></a><span class="co">#&gt; 2 4.590791e-03 -91.55179 -95.15734               0</span></span>
-<span id="cb24-33"><a href="#cb24-33" tabindex="-1"></a><span class="co">#&gt; 3          NaN       NaN       NaN               0</span></span></code></pre></div>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>  <span class="at">InverseParalogistic =</span></span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a>    <span class="fu">fit_inverse_paralogistic</span>(gp),</span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a>  <span class="at">Gompertz =</span> <span class="fu">fit_gompertz</span>(gp)</span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a>)</span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb24-22"><a href="#cb24-22" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb24-23"><a href="#cb24-23" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb24-24"><a href="#cb24-24" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb24-25"><a href="#cb24-25" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb24-26"><a href="#cb24-26" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb24-27"><a href="#cb24-27" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb24-28"><a href="#cb24-28" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb24-29"><a href="#cb24-29" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb24-30"><a href="#cb24-30" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb24-31"><a href="#cb24-31" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb24-32"><a href="#cb24-32" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb24-33"><a href="#cb24-33" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb24-34"><a href="#cb24-34" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb24-35"><a href="#cb24-35" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb24-36"><a href="#cb24-36" tabindex="-1"></a><span class="co">#&gt; Warning in nls.lm(par = start, fn = FCT, jac = jac, control = control, lower = lower, : lmdif: info = 0. Improper input parameters.</span></span>
+<span id="cb24-37"><a href="#cb24-37" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb24-38"><a href="#cb24-38" tabindex="-1"></a><span class="co">#&gt; Observations: 6</span></span>
+<span id="cb24-39"><a href="#cb24-39" tabindex="-1"></a><span class="co">#&gt; Heads: 2</span></span>
+<span id="cb24-40"><a href="#cb24-40" tabindex="-1"></a><span class="co">#&gt; Treatments: 2</span></span>
+<span id="cb24-41"><a href="#cb24-41" tabindex="-1"></a></span>
+<span id="cb24-42"><a href="#cb24-42" tabindex="-1"></a>comparison</span>
+<span id="cb24-43"><a href="#cb24-43" tabindex="-1"></a><span class="co">#&gt;                 Model Bottles Successful_Fits Failed_Fits    Mean_R2 Mean_RMSE</span></span>
+<span id="cb24-44"><a href="#cb24-44" tabindex="-1"></a><span class="co">#&gt; 1               Groot       2               2           0 -0.8504581  15.39026</span></span>
+<span id="cb24-45"><a href="#cb24-45" tabindex="-1"></a><span class="co">#&gt; 2     MichaelisMenten       2               0           2        NaN       NaN</span></span>
+<span id="cb24-46"><a href="#cb24-46" tabindex="-1"></a><span class="co">#&gt; 3             BurrXII       2               2           0 -4.0124301  25.34022</span></span>
+<span id="cb24-47"><a href="#cb24-47" tabindex="-1"></a><span class="co">#&gt; 4 InverseParalogistic       2               2           0 -8.6379664  35.14058</span></span>
+<span id="cb24-48"><a href="#cb24-48" tabindex="-1"></a><span class="co">#&gt; 5            Gompertz       2               0           2        NaN       NaN</span></span>
+<span id="cb24-49"><a href="#cb24-49" tabindex="-1"></a><span class="co">#&gt;    Mean_RSS Mean_AIC Mean_BIC Lambda_Boundary</span></span>
+<span id="cb24-50"><a href="#cb24-50" tabindex="-1"></a><span class="co">#&gt; 1  503.3062 24.48171 19.25430               0</span></span>
+<span id="cb24-51"><a href="#cb24-51" tabindex="-1"></a><span class="co">#&gt; 2       NaN      NaN      NaN               0</span></span>
+<span id="cb24-52"><a href="#cb24-52" tabindex="-1"></a><span class="co">#&gt; 3 1352.8435 28.49555 21.96129               0</span></span>
+<span id="cb24-53"><a href="#cb24-53" tabindex="-1"></a><span class="co">#&gt; 4 2590.5823 27.81283 22.58542               0</span></span>
+<span id="cb24-54"><a href="#cb24-54" tabindex="-1"></a><span class="co">#&gt; 5       NaN      NaN      NaN               0</span></span></code></pre></div>
+<p>The comparison table includes:</p>
+<ul>
+<li>Mean R-squared</li>
+<li>Mean RMSE</li>
+<li>Mean RSS</li>
+<li>Mean AIC</li>
+<li>Mean BIC</li>
+<li>Number of successful fits</li>
+</ul>
+</div>
+<div id="model-ranking" class="section level1">
+<h1>Model Ranking</h1>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">rank_models</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  comparison</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>)</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co">#&gt;                 Model Bottles Successful_Fits Failed_Fits    Mean_R2 Mean_RMSE</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="co">#&gt; 1               Groot       2               2           0 -0.8504581  15.39026</span></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="co">#&gt; 2     MichaelisMenten       2               0           2        NaN       NaN</span></span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a><span class="co">#&gt; 3             BurrXII       2               2           0 -4.0124301  25.34022</span></span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="co">#&gt; 4 InverseParalogistic       2               2           0 -8.6379664  35.14058</span></span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a><span class="co">#&gt; 5            Gompertz       2               0           2        NaN       NaN</span></span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a><span class="co">#&gt;    Mean_RSS Mean_AIC Mean_BIC Lambda_Boundary Rank_R2 Rank_RMSE Rank_AIC</span></span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a><span class="co">#&gt; 1  503.3062 24.48171 19.25430               0       1         1        1</span></span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a><span class="co">#&gt; 2       NaN      NaN      NaN               0       4         4        4</span></span>
+<span id="cb25-13"><a href="#cb25-13" tabindex="-1"></a><span class="co">#&gt; 3 1352.8435 28.49555 21.96129               0       2         2        3</span></span>
+<span id="cb25-14"><a href="#cb25-14" tabindex="-1"></a><span class="co">#&gt; 4 2590.5823 27.81283 22.58542               0       3         3        2</span></span>
+<span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a><span class="co">#&gt; 5       NaN      NaN      NaN               0       5         5        5</span></span>
+<span id="cb25-16"><a href="#cb25-16" tabindex="-1"></a><span class="co">#&gt;   Rank_BIC</span></span>
+<span id="cb25-17"><a href="#cb25-17" tabindex="-1"></a><span class="co">#&gt; 1        1</span></span>
+<span id="cb25-18"><a href="#cb25-18" tabindex="-1"></a><span class="co">#&gt; 2        4</span></span>
+<span id="cb25-19"><a href="#cb25-19" tabindex="-1"></a><span class="co">#&gt; 3        2</span></span>
+<span id="cb25-20"><a href="#cb25-20" tabindex="-1"></a><span class="co">#&gt; 4        3</span></span>
+<span id="cb25-21"><a href="#cb25-21" tabindex="-1"></a><span class="co">#&gt; 5        5</span></span></code></pre></div>
+</div>
+<div id="available-models" class="section level1">
+<h1>Available Models</h1>
+<p>Current built-in models include:</p>
+<ul>
+<li>Brody</li>
+<li>Dual Logistic</li>
+<li>EXP0</li>
+<li>EXPL</li>
+<li>Gompertz</li>
+<li>Groot</li>
+<li>LE0</li>
+<li>LEL</li>
+<li>Logistic</li>
+<li>Mitscherlich</li>
+<li>Generalized Michaelis-Menten</li>
+<li>Ørskov and McDonald</li>
+<li>Burr XII</li>
+<li>Inverse Paralogistic</li>
+</ul>
+</div>
+<div id="model-equivalence" class="section level1">
+<h1>Model Equivalence</h1>
+<div id="groot-and-generalized-michaelis-menten" class="section level2">
+<h2>Groot and Generalized Michaelis-Menten</h2>
+<p>The Groot and generalized Michaelis-Menten models are mathematically
+equivalent.</p>
+<p>Parameter correspondence:</p>
+<ul>
+<li>VF = A</li>
+<li>b = K</li>
+<li>k = c</li>
+</ul>
+<p>Both formulations produce identical:</p>
+<ul>
+<li>Fitted values</li>
+<li>Residuals</li>
+<li>RMSE</li>
+<li>RSS</li>
+<li>AIC</li>
+<li>BIC</li>
+<li>R-squared</li>
+</ul>
+<p>when convergence is achieved.</p>
+</div>
+<div id="groot-generalized-michaelis-menten-and-log-logistic" class="section level2">
+<h2>Groot, Generalized Michaelis-Menten, and Log-logistic</h2>
+<p>The Log-logistic formulation:</p>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\frac{(rt)^a}
+{
+1+(rt)^a
+}
+\]</span></p>
+<p>can be rewritten as:</p>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\frac{t^a}
+{
+t^a+(1/r)^a
+}
+\]</span></p>
+<p>which is mathematically identical to both the Groot and generalized
+Michaelis-Menten models.</p>
+<p>Parameter correspondence:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Groot</th>
+<th>Generalized Michaelis-Menten</th>
+<th>Log-logistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VF</td>
+<td>A</td>
+<td>VF</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td>K</td>
+<td>1/r</td>
+</tr>
+<tr class="odd">
+<td>k</td>
+<td>c</td>
+<td>a</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore:</p>
+<pre class="text"><code>Groot
+=
+Generalized Michaelis-Menten
+=
+Log-logistic</code></pre>
+<p>These parameterizations describe the same underlying curve.</p>
+<p>For this reason, rumenGP does not implement a separate Log-logistic
+fitting routine because the curve is already represented through the
+existing Groot and generalized Michaelis-Menten implementations.</p>
+</div>
+</div>
+<div id="recommended-model-selection-workflow" class="section level1">
+<h1>Recommended Model Selection Workflow</h1>
+<p>A practical workflow is:</p>
+<pre class="text"><code>1. Import and validate data
+
+2. Fit several biologically plausible models
+
+3. Verify convergence
+
+4. Inspect fitted curves
+
+5. Examine residuals
+
+6. Compare RMSE
+
+7. Compare AIC and BIC
+
+8. Evaluate parameter plausibility
+
+9. Select the most appropriate model</code></pre>
+<p>No single model should be considered universally superior.</p>
+<p>Model performance depends on:</p>
+<ul>
+<li>Feed type</li>
+<li>Experimental design</li>
+<li>Data quality</li>
+<li>Fermentation profile characteristics</li>
+<li>Model-selection criteria</li>
+</ul>
 </div>
 <div id="common-errors" class="section level1">
 <h1>Common Errors</h1>
 <div id="no-gas-or-pressure-supplied" class="section level2">
-<h2>No gas or pressure supplied</h2>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">as_rumen_gp</span>(</span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="at">head_col =</span> <span class="st">&quot;Bottle&quot;</span>,</span>
-<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>  <span class="at">time_col =</span> <span class="st">&quot;Time&quot;</span></span>
-<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>)</span></code></pre></div>
+<h2>No Gas or Pressure Supplied</h2>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">as_rumen_gp</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="at">head_col =</span> <span class="st">&quot;Bottle&quot;</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>  <span class="at">time_col =</span> <span class="st">&quot;Time&quot;</span></span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>)</span></code></pre></div>
 <p>Produces:</p>
 <pre class="text"><code>Provide either gas_col or pressure_col.</code></pre>
 </div>
 <div id="both-gas-and-pressure-supplied" class="section level2">
-<h2>Both gas and pressure supplied</h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">as_rumen_gp</span>(</span>
-<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
-<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  <span class="at">gas_col =</span> <span class="st">&quot;Gas&quot;</span>,</span>
-<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span></span>
-<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>)</span></code></pre></div>
+<h2>Both Gas and Pressure Supplied</h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">as_rumen_gp</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="at">gas_col =</span> <span class="st">&quot;Gas&quot;</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>)</span></code></pre></div>
 <p>Produces:</p>
 <pre class="text"><code>Provide only one of gas_col or pressure_col.</code></pre>
 </div>
 <div id="missing-headspace-volume" class="section level2">
-<h2>Missing headspace volume</h2>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">as_rumen_gp</span>(</span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span></span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>)</span></code></pre></div>
+<h2>Missing Headspace Volume</h2>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">as_rumen_gp</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span></span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>)</span></code></pre></div>
 <p>Produces:</p>
 <pre class="text"><code>headspace_volume must be supplied when pressure_col is used.</code></pre>
 </div>
 </div>
 <div id="summary" class="section level1">
 <h1>Summary</h1>
-<p>The <code>as_rumen_gp()</code> function makes it possible to use
-rumenGP with:</p>
+<p>The <code>as_rumen_gp()</code> function allows rumenGP to be used
+with:</p>
 <ul>
 <li>Manual gas-volume datasets</li>
 <li>Pressure-based datasets</li>
 <li>Non-ANKOM experiments</li>
 </ul>
 <p>Once imported, all datasets become standard <code>rumen_gp</code>
-objects and can be analyzed using the full modeling framework.</p>
+objects and can be analyzed using the complete rumenGP workflow,
+including:</p>
+<ul>
+<li>Fifteen built-in kinetic models</li>
+<li>User-defined models</li>
+<li>Model comparison</li>
+<li>Treatment-level evaluation</li>
+<li>Diagnostic workflows</li>
+<li>Visualization tools</li>
+</ul>
+<p>The same modeling workflow can therefore be applied consistently
+across ANKOM and non-ANKOM gas-production experiments.</p>
 </div>
 <div id="next-steps" class="section level1">
 <h1>Next Steps</h1>
+<p>Additional capabilities include custom model development.</p>
 <p>See:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>?fit_custom</span></code></pre></div>
-<p>for information about fitting custom kinetic models.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>?fit_custom</span></code></pre></div>
+<p>for information about fitting user-defined kinetic models.</p>
 </div>
 
 

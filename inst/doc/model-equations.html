@@ -561,7 +561,7 @@ V_f
 <td>Fractional rate constant</td>
 </tr>
 <tr class="odd">
-<td>λ</td>
+<td><span class="math inline">\(\lambda\)</span></td>
 <td>Lag time</td>
 </tr>
 </tbody>
@@ -618,11 +618,11 @@ A
 <td>Asymptotic gas production</td>
 </tr>
 <tr class="even">
-<td>μ</td>
+<td><span class="math inline">\(\mu\)</span></td>
 <td>Maximum gas production rate</td>
 </tr>
 <tr class="odd">
-<td>λ</td>
+<td><span class="math inline">\(\lambda\)</span></td>
 <td>Lag time</td>
 </tr>
 </tbody>
@@ -680,7 +680,7 @@ V(t)
 <td>Fractional rate constant</td>
 </tr>
 <tr class="odd">
-<td>λ</td>
+<td><span class="math inline">\(\lambda\)</span></td>
 <td>Lag time</td>
 </tr>
 </tbody>
@@ -749,7 +749,7 @@ d
 <td>Shape parameter</td>
 </tr>
 <tr class="even">
-<td>λ</td>
+<td><span class="math inline">\(\lambda\)</span></td>
 <td>Lag time</td>
 </tr>
 </tbody>
@@ -878,7 +878,7 @@ k(t-\lambda)
 <td>Shape parameter</td>
 </tr>
 <tr class="even">
-<td>λ</td>
+<td><span class="math inline">\(\lambda\)</span></td>
 <td>Lag time</td>
 </tr>
 </tbody>
@@ -899,8 +899,8 @@ k(t-\lambda)
 <hr />
 </div>
 </div>
-<div id="michaelis-menten" class="section level2">
-<h2>Michaelis-Menten</h2>
+<div id="generalized-michaelis-menten" class="section level2">
+<h2>Generalized Michaelis-Menten</h2>
 <div id="equation-9" class="section level3">
 <h3>Equation</h3>
 <p><span class="math display">\[
@@ -941,8 +941,9 @@ t^{c}+K^{c}
 <div id="advantages-9" class="section level3">
 <h3>Advantages</h3>
 <ul>
-<li>Flexible</li>
+<li>Flexible sigmoidal behavior</li>
 <li>Strong biological interpretation</li>
+<li>Widely applicable across fermentation studies</li>
 </ul>
 </div>
 <div id="limitations-9" class="section level3">
@@ -1006,12 +1007,194 @@ V(t)
 <hr />
 </div>
 </div>
+<div id="burr-xii" class="section level2">
+<h2>Burr XII</h2>
+<div id="equation-11" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\left[
+1
+-
+\left(
+1+(rt)^a
+\right)^{-p}
+\right]
+\]</span></p>
+</div>
+<div id="parameters-11" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VF</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>r</td>
+<td>Rate parameter</td>
+</tr>
+<tr class="odd">
+<td>a</td>
+<td>Shape parameter</td>
+</tr>
+<tr class="even">
+<td>p</td>
+<td>Shape parameter</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="parameter-constraints" class="section level3">
+<h3>Parameter Constraints</h3>
+<p><span class="math display">\[
+a &gt; 1
+\]</span></p>
+<p><span class="math display">\[
+p &gt; 0
+\]</span></p>
+</div>
+<div id="interpretation" class="section level3">
+<h3>Interpretation</h3>
+<p>The Burr XII model is a highly flexible sigmoidal model capable of
+describing a broad range of fermentation profiles.</p>
+<p>The parameter <span class="math inline">\(r\)</span> controls
+gas-production rate, while <span class="math inline">\(a\)</span> and
+<span class="math inline">\(p\)</span> jointly influence curve shape,
+asymmetry, and inflection behavior.</p>
+</div>
+<div id="advantages-11" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Highly flexible curve shape</li>
+<li>Accommodates diverse fermentation profiles</li>
+<li>Often provides excellent goodness of fit</li>
+<li>Useful for broad model comparison studies</li>
+</ul>
+</div>
+<div id="limitations-11" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>More parameters than simpler models</li>
+<li>Greater risk of overfitting</li>
+<li>Parameter interpretation may be less intuitive</li>
+</ul>
+</div>
+<div id="typical-applications" class="section level3">
+<h3>Typical Applications</h3>
+<ul>
+<li>Diverse feed datasets</li>
+<li>Comparative model-selection studies</li>
+<li>Sigmoidal fermentation profiles</li>
+</ul>
+</div>
+<div id="literature-context" class="section level3">
+<h3>Literature Context</h3>
+<p>Recent comparative studies have identified Burr XII among the
+strongest-performing models across diverse feed categories when
+evaluated using information-criterion-based selection methods.</p>
+<hr />
+</div>
+</div>
+<div id="inverse-paralogistic" class="section level2">
+<h2>Inverse Paralogistic</h2>
+<div id="equation-12" class="section level3">
+<h3>Equation</h3>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\left[
+1
++
+(rt)^{-a}
+\right]^{-a}
+\]</span></p>
+</div>
+<div id="parameters-12" class="section level3">
+<h3>Parameters</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VF</td>
+<td>Asymptotic gas production</td>
+</tr>
+<tr class="even">
+<td>r</td>
+<td>Rate parameter</td>
+</tr>
+<tr class="odd">
+<td>a</td>
+<td>Shape parameter</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="parameter-constraints-1" class="section level3">
+<h3>Parameter Constraints</h3>
+<p><span class="math display">\[
+a &gt; 1
+\]</span></p>
+</div>
+<div id="interpretation-1" class="section level3">
+<h3>Interpretation</h3>
+<p>The Inverse Paralogistic model is a flexible sigmoidal model capable
+of describing a wide range of cumulative gas-production curves.</p>
+<p>The parameter <span class="math inline">\(r\)</span> controls
+production speed, while <span class="math inline">\(a\)</span> controls
+curve shape and steepness.</p>
+</div>
+<div id="advantages-12" class="section level3">
+<h3>Advantages</h3>
+<ul>
+<li>Flexible sigmoidal behavior</li>
+<li>Relatively simple parameterization</li>
+<li>Performs well across diverse gas-production datasets</li>
+</ul>
+</div>
+<div id="limitations-12" class="section level3">
+<h3>Limitations</h3>
+<ul>
+<li>Less common in rumen literature</li>
+<li>Shape parameter can be difficult to interpret biologically</li>
+<li>Requires strictly positive incubation times</li>
+</ul>
+</div>
+<div id="typical-applications-1" class="section level3">
+<h3>Typical Applications</h3>
+<ul>
+<li>Flexible nonlinear gas-production modeling</li>
+<li>Comparative model-selection studies</li>
+<li>Curves exhibiting sigmoidal behavior</li>
+</ul>
+</div>
+<div id="literature-context-1" class="section level3">
+<h3>Literature Context</h3>
+<p>Recent comparative studies have identified Inverse Paralogistic among
+the strongest-performing models across diverse feed categories.</p>
+<hr />
+</div>
+</div>
 </div>
 <div id="multi-pool-models" class="section level1">
 <h1>Multi-Pool Models</h1>
 <div id="dual-logistic" class="section level2">
 <h2>Dual Logistic</h2>
-<div id="equation-11" class="section level3">
+<div id="equation-13" class="section level3">
 <h3>Equation</h3>
 <p><span class="math display">\[
 V(t)
@@ -1033,7 +1216,7 @@ V(t)
 }
 \]</span></p>
 </div>
-<div id="parameters-11" class="section level3">
+<div id="parameters-13" class="section level3">
 <h3>Parameters</h3>
 <table>
 <thead>
@@ -1044,36 +1227,36 @@ V(t)
 </thead>
 <tbody>
 <tr class="odd">
-<td>V1F</td>
+<td><span class="math inline">\(V_{1F}\)</span></td>
 <td>Gas volume from rapidly fermentable fraction</td>
 </tr>
 <tr class="even">
-<td>V2F</td>
+<td><span class="math inline">\(V_{2F}\)</span></td>
 <td>Gas volume from slowly fermentable fraction</td>
 </tr>
 <tr class="odd">
-<td>k1</td>
+<td><span class="math inline">\(k_1\)</span></td>
 <td>Rate constant of rapid fraction</td>
 </tr>
 <tr class="even">
-<td>k2</td>
+<td><span class="math inline">\(k_2\)</span></td>
 <td>Rate constant of slow fraction</td>
 </tr>
 <tr class="odd">
-<td>λ</td>
+<td><span class="math inline">\(\lambda\)</span></td>
 <td>Lag time</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="advantages-11" class="section level3">
+<div id="advantages-13" class="section level3">
 <h3>Advantages</h3>
 <ul>
 <li>Represents multiple fermentation pools</li>
 <li>Biologically meaningful decomposition</li>
 </ul>
 </div>
-<div id="limitations-11" class="section level3">
+<div id="limitations-13" class="section level3">
 <h3>Limitations</h3>
 <ul>
 <li>More parameters</li>
@@ -1085,25 +1268,112 @@ V(t)
 </div>
 <div id="model-equivalence" class="section level1">
 <h1>Model Equivalence</h1>
-<div id="groot-and-michaelis-menten" class="section level2">
-<h2>Groot and Michaelis-Menten</h2>
-<p>The Groot and generalized Michaelis-Menten models are mathematically
-equivalent.</p>
-<p>Parameter correspondence:</p>
+<div id="groot-generalized-michaelis-menten-and-log-logistic" class="section level2">
+<h2>Groot, Generalized Michaelis-Menten, and Log-logistic</h2>
+<p>Several gas-production models commonly used in rumen fermentation
+research and nonlinear modeling are mathematically equivalent.</p>
+<div id="groot-1" class="section level3">
+<h3>Groot</h3>
 <p><span class="math display">\[
-VF = A
+V(t)
+=
+\frac{VF}
+{
+1+\left(\frac{b}{t}\right)^k
+}
 \]</span></p>
+</div>
+<div id="generalized-michaelis-menten-1" class="section level3">
+<h3>Generalized Michaelis-Menten</h3>
 <p><span class="math display">\[
-b = K
+V(t)
+=
+A
+\frac{t^{c}}
+{
+t^{c}+K^{c}
+}
 \]</span></p>
+</div>
+<div id="log-logistic" class="section level3">
+<h3>Log-logistic</h3>
 <p><span class="math display">\[
-k = c
+V(t)
+=
+VF
+\frac{(rt)^a}
+{
+1+(rt)^a
+}
 \]</span></p>
-<p>Both formulations produce identical fitted values and model
-diagnostics when convergence is achieved.</p>
-<p>Researchers may select either model according to the terminology
-commonly used in their field.</p>
+<p>The Log-logistic formulation can be rewritten as:</p>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\frac{t^a}
+{
+t^a+(1/r)^a
+}
+\]</span></p>
+<p>which is identical to the generalized Michaelis-Menten
+formulation.</p>
+</div>
+<div id="parameter-correspondence" class="section level3">
+<h3>Parameter Correspondence</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Groot</th>
+<th>Generalized Michaelis-Menten</th>
+<th>Log-logistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VF</td>
+<td>A</td>
+<td>VF</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td>K</td>
+<td>1/r</td>
+</tr>
+<tr class="odd">
+<td>k</td>
+<td>c</td>
+<td>a</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\text{Groot}
+\equiv
+\text{Generalized Michaelis-Menten}
+\equiv
+\text{Log-logistic}
+\]</span></p>
+<p>These formulations produce identical:</p>
+<ul>
+<li>Fitted values</li>
+<li>Residuals</li>
+<li>RSS</li>
+<li>RMSE</li>
+<li>R-squared</li>
+<li>AIC</li>
+<li>BIC</li>
+</ul>
+<p>when equivalent parameter transformations are used.</p>
+<p>Researchers may therefore choose the parameterization most commonly
+used within their field while obtaining identical fitted curves.</p>
+<p>For this reason, rumenGP does not currently implement a separate
+Log-logistic fitting routine. The Log-logistic formulation is already
+represented through the existing Groot and generalized Michaelis-Menten
+parameterizations.</p>
 <hr />
+</div>
 </div>
 </div>
 <div id="choosing-a-model" class="section level1">
@@ -1145,12 +1415,16 @@ commonly used in their field.</p>
 <li>LE0</li>
 <li>LEL</li>
 <li>Groot</li>
-<li>Michaelis-Menten</li>
+<li>Generalized Michaelis-Menten</li>
+<li>Burr XII</li>
+<li>Inverse Paralogistic</li>
 </ul>
 <p>Use when:</p>
 <ul>
 <li>Fermentation profiles display sigmoidal behavior</li>
 <li>Greater flexibility is needed</li>
+<li>Multiple biologically plausible models are being compared</li>
+<li>Information-criterion-based selection (AIC or BIC) is desired</li>
 </ul>
 <hr />
 </div>
@@ -1176,21 +1450,29 @@ commonly used in their field.</p>
 <hr />
 </div>
 </div>
-<div id="summary" class="section level1">
-<h1>Summary</h1>
-<p>rumenGP provides a diverse collection of nonlinear kinetic models
-ranging from simple exponential equations to flexible multi-pool
-formulations.</p>
-<p>Model choice should be guided by:</p>
+<div id="model-selection-guidance" class="section level1">
+<h1>Model Selection Guidance</h1>
+<p>No single gas-production model should be considered universally
+superior.</p>
+<p>Model performance depends on:</p>
 <ul>
-<li>Biological plausibility</li>
-<li>Goodness of fit</li>
-<li>Parameter interpretability</li>
-<li>Convergence stability</li>
-<li>Research objectives</li>
+<li>Feed type</li>
+<li>Experimental design</li>
+<li>Data quality</li>
+<li>Fermentation profile characteristics</li>
+<li>Model-selection criteria</li>
 </ul>
-<p>Researchers are encouraged to compare multiple models before
-selecting a final representation of fermentation kinetics.</p>
+<p>A practical workflow is:</p>
+<ol style="list-style-type: decimal">
+<li>Fit several biologically plausible candidate models.</li>
+<li>Verify convergence.</li>
+<li>Examine fitted curves visually.</li>
+<li>Examine residual patterns.</li>
+<li>Compare RMSE.</li>
+<li>Compare AIC and BIC.</li>
+<li>Evaluate parameter plausibility.</li>
+<li>Select the model most appropriate</li>
+</ol>
 </div>
 
 

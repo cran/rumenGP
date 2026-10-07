@@ -350,7 +350,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>ANKOM RF datasets</li>
 <li>Manual gas-volume datasets</li>
 <li>Pressure-based datasets</li>
-<li>Twelve built-in kinetic models</li>
+<li>Fifteen built-in kinetic models</li>
 <li>User-defined kinetic models</li>
 <li>Model comparison and ranking</li>
 <li>Treatment-level model evaluation</li>
@@ -367,10 +367,10 @@ ANKOM example dataset.</p>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>files</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; $ankom</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;C:/Users/Arlan/AppData/Local/Temp/RtmpQ9phut/Rinst21142159614e/rumenGP/extdata/example_ankom.xlsx&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;C:/Users/Arlan/AppData/Local/Temp/Rtmp0u91qd/Rinst45385775400a/rumenGP/extdata/example_ankom.xlsx&quot;</span></span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; $metadata</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;C:/Users/Arlan/AppData/Local/Temp/RtmpQ9phut/Rinst21142159614e/rumenGP/extdata/example_metadata.xlsx&quot;</span></span></code></pre></div>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;C:/Users/Arlan/AppData/Local/Temp/Rtmp0u91qd/Rinst45385775400a/rumenGP/extdata/example_metadata.xlsx&quot;</span></span></code></pre></div>
 </div>
 <div id="import-ankom-data" class="section level1">
 <h1>Import ANKOM Data</h1>
@@ -448,17 +448,36 @@ object.</p>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; Heads: 24</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; Treatments: 5</span></span>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>gompertz_fit <span class="ot">&lt;-</span> <span class="fu">fit_gompertz</span>(gp)</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>mm_fit <span class="ot">&lt;-</span> <span class="fu">fit_mm</span>(gp)</span>
 <span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
 <span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; Observations: 1752</span></span>
 <span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; Heads: 24</span></span>
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; Treatments: 5</span></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>brody_fit <span class="ot">&lt;-</span> <span class="fu">fit_brody</span>(gp)</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>gompertz_fit <span class="ot">&lt;-</span> <span class="fu">fit_gompertz</span>(gp)</span>
 <span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; Observations: 1752</span></span>
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; Heads: 24</span></span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; Treatments: 5</span></span></code></pre></div>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; Treatments: 5</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>brody_fit <span class="ot">&lt;-</span> <span class="fu">fit_brody</span>(gp)</span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; Observations: 1752</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; Heads: 24</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; Treatments: 5</span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>burr_fit <span class="ot">&lt;-</span> <span class="fu">fit_burr_xii</span>(gp)</span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt; Observations: 1752</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; Heads: 24</span></span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; Treatments: 5</span></span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a>inverse_paralogistic_fit <span class="ot">&lt;-</span></span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a>  <span class="fu">fit_inverse_paralogistic</span>(gp)</span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt; rumenGP data validation passed.</span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; Observations: 1752</span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; Heads: 24</span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt; Treatments: 5</span></span></code></pre></div>
 </div>
 <div id="summarize-model-fits" class="section level1">
 <h1>Summarize Model Fits</h1>
@@ -525,21 +544,34 @@ statistics.</p>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="at">Groot =</span> groot_fit,</span>
 <span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>  <span class="at">Gompertz =</span> gompertz_fit,</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>  <span class="at">MichaelisMenten =</span> mm_fit,</span>
 <span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="at">Brody =</span> brody_fit</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="at">BurrXII =</span> burr_fit,</span>
 <span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>)</span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>comparison</span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt;      Model Bottles Successful_Fits Failed_Fits   Mean_R2 Mean_RMSE  Mean_RSS</span></span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="co">#&gt; 1    Groot      24              24           0 0.9134994  2.154301  491.4637</span></span>
-<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="co">#&gt; 2 Gompertz      24              23           1 0.9545965  4.216094 1837.5449</span></span>
-<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt; 3    Brody      24              23           1 0.9453304  3.604892 1076.8697</span></span>
-<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="co">#&gt;   Mean_AIC Mean_BIC Lambda_Boundary</span></span>
-<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="co">#&gt; 1 297.0687 306.1754               0</span></span>
-<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#&gt; 2 392.2245 401.3864               8</span></span>
-<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt; 3 393.6300 402.7918               0</span></span></code></pre></div>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="at">InverseParalogistic =</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>    inverse_paralogistic_fit,</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>  <span class="at">Gompertz =</span> gompertz_fit,</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>  <span class="at">Brody =</span> brody_fit</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>)</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>comparison</span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt;                 Model Bottles Successful_Fits Failed_Fits   Mean_R2 Mean_RMSE</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="co">#&gt; 1               Groot      24              24           0 0.9134994  2.154301</span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="co">#&gt; 2     MichaelisMenten      24              24           0 0.9408013  2.041895</span></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="co">#&gt; 3             BurrXII      24              24           0 0.8752286  3.760356</span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="co">#&gt; 4 InverseParalogistic      24              24           0 0.8898379  3.413298</span></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="co">#&gt; 5            Gompertz      24              23           1 0.9545965  4.216094</span></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="co">#&gt; 6               Brody      24              23           1 0.9453304  3.604892</span></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="co">#&gt;    Mean_RSS Mean_AIC Mean_BIC Lambda_Boundary</span></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="co">#&gt; 1  491.4637 297.0687 306.1754               0</span></span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a><span class="co">#&gt; 2  458.2130 293.3112 302.4731               0</span></span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="co">#&gt; 3 1729.1639 355.1061 366.4894               0</span></span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="co">#&gt; 4 1244.0029 351.4587 360.5654               0</span></span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a><span class="co">#&gt; 5 1837.5449 392.2245 401.3864               8</span></span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a><span class="co">#&gt; 6 1076.8697 393.6300 402.7918               0</span></span></code></pre></div>
 <p>The comparison table includes:</p>
 <ul>
 <li>Mean R-squared</li>
@@ -555,14 +587,27 @@ statistics.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">rank_models</span>(</span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  comparison</span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>)</span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt;      Model Bottles Successful_Fits Failed_Fits   Mean_R2 Mean_RMSE  Mean_RSS</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt; 1    Groot      24              24           0 0.9134994  2.154301  491.4637</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; 2 Gompertz      24              23           1 0.9545965  4.216094 1837.5449</span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; 3    Brody      24              23           1 0.9453304  3.604892 1076.8697</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt;   Mean_AIC Mean_BIC Lambda_Boundary Rank_R2 Rank_RMSE Rank_AIC Rank_BIC</span></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; 1 297.0687 306.1754               0       3         1        1        1</span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; 2 392.2245 401.3864               8       1         3        2        2</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; 3 393.6300 402.7918               0       2         2        3        3</span></span></code></pre></div>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt;                 Model Bottles Successful_Fits Failed_Fits   Mean_R2 Mean_RMSE</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt; 1               Groot      24              24           0 0.9134994  2.154301</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; 2     MichaelisMenten      24              24           0 0.9408013  2.041895</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; 3             BurrXII      24              24           0 0.8752286  3.760356</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; 4 InverseParalogistic      24              24           0 0.8898379  3.413298</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; 5            Gompertz      24              23           1 0.9545965  4.216094</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; 6               Brody      24              23           1 0.9453304  3.604892</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt;    Mean_RSS Mean_AIC Mean_BIC Lambda_Boundary Rank_R2 Rank_RMSE Rank_AIC</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; 1  491.4637 297.0687 306.1754               0       4         2        2</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; 2  458.2130 293.3112 302.4731               0       3         1        1</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; 3 1729.1639 355.1061 366.4894               0       6         5        4</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; 4 1244.0029 351.4587 360.5654               0       5         3        3</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; 5 1837.5449 392.2245 401.3864               8       1         6        5</span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; 6 1076.8697 393.6300 402.7918               0       2         4        6</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt;   Rank_BIC</span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt; 1        2</span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">#&gt; 2        1</span></span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt; 3        4</span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt; 4        3</span></span>
+<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="co">#&gt; 5        5</span></span>
+<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a><span class="co">#&gt; 6        6</span></span></code></pre></div>
 </div>
 <div id="compare-models-by-treatment" class="section level1">
 <h1>Compare Models by Treatment</h1>
@@ -572,31 +617,34 @@ statistics.</p>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>    <span class="at">Groot =</span> groot_fit,</span>
 <span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>    <span class="at">Gompertz =</span> gompertz_fit,</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>    <span class="at">MichaelisMenten =</span> mm_fit,</span>
 <span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>    <span class="at">Brody =</span> brody_fit</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>    <span class="at">BurrXII =</span> burr_fit,</span>
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a>  )</span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>treatment_comparison</span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; # A tibble: 15 × 6</span></span>
-<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt;    Treatment Model    Mean_R2 Mean_RMSE Mean_AIC Mean_BIC</span></span>
-<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt;  1 BLANK     Groot      0.714      1.75     257.     266.</span></span>
-<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt;  2 Plant_A   Groot      0.968      2.33     281.     290.</span></span>
-<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="co">#&gt;  3 Plant_B   Groot      0.854      1.73     281.     290.</span></span>
-<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="co">#&gt;  4 Plant_C   Groot      0.982      2.11     309.     319.</span></span>
-<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="co">#&gt;  5 TMR       Groot      0.988      3.14     377.     386.</span></span>
-<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a><span class="co">#&gt;  6 BLANK     Gompertz   0.943      2.01     293.     302.</span></span>
-<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a><span class="co">#&gt;  7 Plant_A   Gompertz   0.936      5.05     417.     426.</span></span>
-<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a><span class="co">#&gt;  8 Plant_B   Gompertz   0.969      4.16     393.     402.</span></span>
-<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a><span class="co">#&gt;  9 Plant_C   Gompertz   0.967      3.73     381.     390.</span></span>
-<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a><span class="co">#&gt; 10 TMR       Gompertz   0.957      5.83     464.     473.</span></span>
-<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a><span class="co">#&gt; 11 BLANK     Brody      0.907      1.77     299.     308.</span></span>
-<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a><span class="co">#&gt; 12 Plant_A   Brody      0.928      4.01     405.     415.</span></span>
-<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a><span class="co">#&gt; 13 Plant_B   Brody      0.976      3.86     411.     421.</span></span>
-<span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a><span class="co">#&gt; 14 Plant_C   Brody      0.941      3.46     394.     403.</span></span>
-<span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a><span class="co">#&gt; 15 TMR       Brody      0.977      4.50     435.     444.</span></span></code></pre></div>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a>    <span class="at">InverseParalogistic =</span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>      inverse_paralogistic_fit,</span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>    <span class="at">Gompertz =</span> gompertz_fit,</span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a>    <span class="at">Brody =</span> brody_fit</span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a>  )</span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a>treatment_comparison</span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="co">#&gt; # A tibble: 30 × 6</span></span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a><span class="co">#&gt;    Treatment Model           Mean_R2 Mean_RMSE Mean_AIC Mean_BIC</span></span>
+<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a><span class="co">#&gt;  1 BLANK     Groot             0.714     1.75      257.     266.</span></span>
+<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a><span class="co">#&gt;  2 Plant_A   Groot             0.968     2.33      281.     290.</span></span>
+<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a><span class="co">#&gt;  3 Plant_B   Groot             0.854     1.73      281.     290.</span></span>
+<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a><span class="co">#&gt;  4 Plant_C   Groot             0.982     2.11      309.     319.</span></span>
+<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a><span class="co">#&gt;  5 TMR       Groot             0.988     3.14      377.     386.</span></span>
+<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a><span class="co">#&gt;  6 BLANK     MichaelisMenten   0.972     0.925     201.     210.</span></span>
+<span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a><span class="co">#&gt;  7 Plant_A   MichaelisMenten   0.970     2.32      284.     293.</span></span>
+<span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a><span class="co">#&gt;  8 Plant_B   MichaelisMenten   0.830     1.74      286.     295.</span></span>
+<span id="cb16-31"><a href="#cb16-31" tabindex="-1"></a><span class="co">#&gt;  9 Plant_C   MichaelisMenten   0.983     2.09      313.     322.</span></span>
+<span id="cb16-32"><a href="#cb16-32" tabindex="-1"></a><span class="co">#&gt; 10 TMR       MichaelisMenten   0.989     3.12      381.     390.</span></span>
+<span id="cb16-33"><a href="#cb16-33" tabindex="-1"></a><span class="co">#&gt; # ℹ 20 more rows</span></span></code></pre></div>
 </div>
 <div id="rank-models-by-treatment" class="section level1">
 <h1>Rank Models by Treatment</h1>
@@ -606,25 +654,21 @@ statistics.</p>
 <span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  )</span>
 <span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a></span>
 <span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>ranked_treatments</span>
-<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 15 × 10</span></span>
-<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="co">#&gt;    Treatment Model    Mean_R2 Mean_RMSE Mean_AIC Mean_BIC Rank_R2 Rank_RMSE</span></span>
-<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt;     &lt;int&gt;</span></span>
-<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co">#&gt;  1 BLANK     Groot      0.714      1.75     257.     266.       3         1</span></span>
-<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt;  2 Plant_A   Groot      0.968      2.33     281.     290.       1         1</span></span>
-<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt;  3 Plant_B   Groot      0.854      1.73     281.     290.       3         1</span></span>
-<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">#&gt;  4 Plant_C   Groot      0.982      2.11     309.     319.       1         1</span></span>
-<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt;  5 TMR       Groot      0.988      3.14     377.     386.       1         1</span></span>
-<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">#&gt;  6 BLANK     Gompertz   0.943      2.01     293.     302.       1         3</span></span>
-<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a><span class="co">#&gt;  7 Plant_A   Gompertz   0.936      5.05     417.     426.       2         3</span></span>
-<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a><span class="co">#&gt;  8 Plant_B   Gompertz   0.969      4.16     393.     402.       2         3</span></span>
-<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a><span class="co">#&gt;  9 Plant_C   Gompertz   0.967      3.73     381.     390.       2         3</span></span>
-<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a><span class="co">#&gt; 10 TMR       Gompertz   0.957      5.83     464.     473.       3         3</span></span>
-<span id="cb17-20"><a href="#cb17-20" tabindex="-1"></a><span class="co">#&gt; 11 BLANK     Brody      0.907      1.77     299.     308.       2         2</span></span>
-<span id="cb17-21"><a href="#cb17-21" tabindex="-1"></a><span class="co">#&gt; 12 Plant_A   Brody      0.928      4.01     405.     415.       3         2</span></span>
-<span id="cb17-22"><a href="#cb17-22" tabindex="-1"></a><span class="co">#&gt; 13 Plant_B   Brody      0.976      3.86     411.     421.       1         2</span></span>
-<span id="cb17-23"><a href="#cb17-23" tabindex="-1"></a><span class="co">#&gt; 14 Plant_C   Brody      0.941      3.46     394.     403.       3         2</span></span>
-<span id="cb17-24"><a href="#cb17-24" tabindex="-1"></a><span class="co">#&gt; 15 TMR       Brody      0.977      4.50     435.     444.       2         2</span></span>
-<span id="cb17-25"><a href="#cb17-25" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: Rank_AIC &lt;int&gt;, Rank_BIC &lt;int&gt;</span></span></code></pre></div>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 30 × 10</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="co">#&gt;    Treatment Model         Mean_R2 Mean_RMSE Mean_AIC Mean_BIC Rank_R2 Rank_RMSE</span></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt;     &lt;int&gt;</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co">#&gt;  1 BLANK     Groot           0.714     1.75      257.     266.       5         2</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt;  2 Plant_A   Groot           0.968     2.33      281.     290.       2         2</span></span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt;  3 Plant_B   Groot           0.854     1.73      281.     290.       3         1</span></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">#&gt;  4 Plant_C   Groot           0.982     2.11      309.     319.       2         2</span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt;  5 TMR       Groot           0.988     3.14      377.     386.       2         2</span></span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">#&gt;  6 BLANK     MichaelisMen…   0.972     0.925     201.     210.       1         1</span></span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a><span class="co">#&gt;  7 Plant_A   MichaelisMen…   0.970     2.32      284.     293.       1         1</span></span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a><span class="co">#&gt;  8 Plant_B   MichaelisMen…   0.830     1.74      286.     295.       4         2</span></span>
+<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a><span class="co">#&gt;  9 Plant_C   MichaelisMen…   0.983     2.09      313.     322.       1         1</span></span>
+<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a><span class="co">#&gt; 10 TMR       MichaelisMen…   0.989     3.12      381.     390.       1         1</span></span>
+<span id="cb17-20"><a href="#cb17-20" tabindex="-1"></a><span class="co">#&gt; # ℹ 20 more rows</span></span>
+<span id="cb17-21"><a href="#cb17-21" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: Rank_AIC &lt;int&gt;, Rank_BIC &lt;int&gt;</span></span></code></pre></div>
 </div>
 <div id="determine-the-best-model-per-treatment" class="section level1">
 <h1>Determine the Best Model per Treatment</h1>
@@ -634,25 +678,29 @@ statistics.</p>
 <span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  )</span>
 <span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a></span>
 <span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>best_models</span>
-<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 12</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 8 × 12</span></span>
 <span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co">#&gt;   Treatment Model Mean_R2 Mean_RMSE Mean_AIC Mean_BIC Rank_R2 Rank_RMSE Rank_AIC</span></span>
 <span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt;     &lt;int&gt;    &lt;int&gt;</span></span>
-<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co">#&gt; 1 BLANK     Groot   0.714      1.75     257.     266.       3         1        1</span></span>
-<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#&gt; 2 Plant_A   Groot   0.968      2.33     281.     290.       1         1        1</span></span>
-<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co">#&gt; 3 Plant_B   Groot   0.854      1.73     281.     290.       3         1        1</span></span>
-<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co">#&gt; 4 Plant_C   Groot   0.982      2.11     309.     319.       1         1        1</span></span>
-<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="co">#&gt; 5 TMR       Groot   0.988      3.14     377.     386.       1         1        1</span></span>
-<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 3 more variables: Rank_BIC &lt;int&gt;, Total_Rank &lt;int&gt;, Overall_Rank &lt;int&gt;</span></span></code></pre></div>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co">#&gt; 1 BLANK     Mich…   0.972     0.925     201.     210.       1         1        1</span></span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#&gt; 2 Plant_A   Groot   0.968     2.33      281.     290.       2         2        1</span></span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co">#&gt; 3 Plant_A   Mich…   0.970     2.32      284.     293.       1         1        2</span></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co">#&gt; 4 Plant_B   Groot   0.854     1.73      281.     290.       3         1        1</span></span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="co">#&gt; 5 Plant_C   Groot   0.982     2.11      309.     319.       2         2        1</span></span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co">#&gt; 6 Plant_C   Mich…   0.983     2.09      313.     322.       1         1        2</span></span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a><span class="co">#&gt; 7 TMR       Groot   0.988     3.14      377.     386.       2         2        1</span></span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a><span class="co">#&gt; 8 TMR       Mich…   0.989     3.12      381.     390.       1         1        2</span></span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a><span class="co">#&gt; # ℹ 3 more variables: Rank_BIC &lt;int&gt;, Total_Rank &lt;int&gt;, Overall_Rank &lt;int&gt;</span></span></code></pre></div>
 </div>
 <div id="model-win-frequency" class="section level1">
 <h1>Model Win Frequency</h1>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">model_win_frequency</span>(</span>
 <span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  best_models</span>
 <span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>)</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#&gt;   Model Treatments_Won</span></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;          &lt;int&gt;</span></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#&gt; 1 Groot              5</span></span></code></pre></div>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#&gt;   Model           Treatments_Won</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                    &lt;int&gt;</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#&gt; 1 Groot                        4</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#&gt; 2 MichaelisMenten              4</span></span></code></pre></div>
 </div>
 <div id="quality-control-workflow" class="section level1">
 <h1>Quality Control Workflow</h1>
@@ -665,7 +713,7 @@ Process ANKOM data
     ↓
 Validate processed data
     ↓
-Fit models
+Fit multiple candidate models
     ↓
 Flag problematic bottles
     ↓
@@ -675,7 +723,11 @@ Exclude problematic bottles
     ↓
 Refit models
     ↓
-Compare models</code></pre>
+Compare RMSE
+    ↓
+Compare AIC and BIC
+    ↓
+Select final model</code></pre>
 <p>Example bottle exclusion:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>gp_clean <span class="ot">&lt;-</span> <span class="fu">exclude_heads</span>(</span>
 <span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>  gp,</span>
@@ -697,11 +749,16 @@ Compare models</code></pre>
 <li>LEL</li>
 <li>Logistic</li>
 <li>Mitscherlich</li>
-<li>Michaelis-Menten</li>
-<li>Orskov and McDonald</li>
+<li>Generalized Michaelis-Menten</li>
+<li>Ørskov and McDonald</li>
+<li>Burr XII</li>
+<li>Inverse Paralogistic</li>
 </ul>
-<div id="note-on-groot-and-michaelis-menten" class="section level2">
-<h2>Note on Groot and Michaelis-Menten</h2>
+</div>
+<div id="model-equivalence" class="section level1">
+<h1>Model Equivalence</h1>
+<div id="groot-and-generalized-michaelis-menten" class="section level2">
+<h2>Groot and Generalized Michaelis-Menten</h2>
 <p>The Groot and generalized Michaelis-Menten models are mathematically
 equivalent.</p>
 <p>Parameter correspondence:</p>
@@ -710,8 +767,172 @@ equivalent.</p>
 <li>b = K</li>
 <li>k = c</li>
 </ul>
+<p>Both formulations produce identical fitted values, residuals,
+diagnostics, AIC, BIC, RMSE, and R-squared when convergence is
+achieved.</p>
 <p>Researchers may choose either formulation depending on the
 terminology commonly used in their field.</p>
+</div>
+<div id="groot-generalized-michaelis-menten-and-log-logistic" class="section level2">
+<h2>Groot, Generalized Michaelis-Menten, and Log-logistic</h2>
+<p>The Log-logistic formulation</p>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\frac{(rt)^a}
+{
+1 + (rt)^a
+}
+\]</span></p>
+<p>can be rewritten as</p>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\frac{t^a}
+{
+t^a + (1/r)^a
+}
+\]</span></p>
+<p>which is mathematically identical to both the Groot and generalized
+Michaelis-Menten models.</p>
+<p>Parameter correspondence:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Groot</th>
+<th>Generalized Michaelis-Menten</th>
+<th>Log-logistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VF</td>
+<td>A</td>
+<td>VF</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td>K</td>
+<td>1/r</td>
+</tr>
+<tr class="odd">
+<td>k</td>
+<td>c</td>
+<td>a</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore:</p>
+<pre class="text"><code>Groot
+=
+Generalized Michaelis-Menten
+=
+Log-logistic</code></pre>
+<p>These formulations describe the same underlying curve and differ only
+in parameterization.</p>
+<p>For this reason, rumenGP does not currently implement a separate
+Log-logistic fitting routine. The Log-logistic curve family is already
+represented through the existing Groot and generalized Michaelis-Menten
+implementations.</p>
+</div>
+</div>
+<div id="recommended-model-selection-workflow" class="section level1">
+<h1>Recommended Model Selection Workflow</h1>
+<p>No single gas-production model should be considered universally
+superior.</p>
+<p>A recommended workflow is:</p>
+<ol style="list-style-type: decimal">
+<li>Fit several biologically plausible models.</li>
+<li>Verify convergence.</li>
+<li>Inspect fitted curves.</li>
+<li>Examine residuals.</li>
+<li>Compare RMSE.</li>
+<li>Compare AIC and BIC.</li>
+<li>Evaluate biological plausibility of parameter estimates.</li>
+<li>Select the model most appropriate for the scientific objective.</li>
+</ol>
+<p>Recent comparative work has identified Burr XII, Inverse
+Paralogistic, and Log-logistic formulations among the strong-performing
+models across diverse feed datasets.</p>
+<p>Because the Log-logistic formulation is mathematically equivalent to
+the existing Groot and generalized Michaelis-Menten models, rumenGP
+already provides this curve family through those parameterizations.</p>
+</div>
+<div id="new-additions" class="section level1">
+<h1>New Additions</h1>
+<div id="burr-xii" class="section level2">
+<h2>Burr XII</h2>
+<p>Equation:</p>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\left[
+1
+-
+\left(
+1+(rt)^a
+\right)^{-p}
+\right]
+\]</span></p>
+<p>Parameters:</p>
+<ul>
+<li>VF: asymptotic gas production</li>
+<li>r: rate parameter</li>
+<li>a: shape parameter</li>
+<li>p: shape parameter</li>
+</ul>
+<p>Potential advantages:</p>
+<ul>
+<li>Highly flexible curve shape</li>
+<li>Accommodates diverse fermentation profiles</li>
+<li>Often produces excellent goodness-of-fit</li>
+<li>Useful for comparative model evaluation</li>
+</ul>
+<p>Potential limitations:</p>
+<ul>
+<li>Four-parameter model</li>
+<li>Greater risk of overfitting than simpler models</li>
+<li>Parameter interpretation may be less intuitive</li>
+</ul>
+</div>
+<div id="inverse-paralogistic" class="section level2">
+<h2>Inverse Paralogistic</h2>
+<p>Equation:</p>
+<p><span class="math display">\[
+V(t)
+=
+VF
+\left[
+1
++
+(rt)^{-a}
+\right]^{-a}
+\]</span></p>
+<p>Parameters:</p>
+<ul>
+<li>VF: asymptotic gas production</li>
+<li>r: rate parameter</li>
+<li>a: shape parameter</li>
+</ul>
+<p>Potential advantages:</p>
+<ul>
+<li>Flexible sigmoidal behavior</li>
+<li>Relatively simple parameterization</li>
+<li>Performs well across diverse kinetic profiles</li>
+</ul>
+<p>Potential limitations:</p>
+<ul>
+<li>Less common in rumen literature</li>
+<li>Shape parameter can be difficult to interpret</li>
+<li>Requires positive incubation times</li>
+</ul>
+<p>Neither Burr XII nor Inverse Paralogistic should be considered
+universally superior.</p>
+<p>Model performance depends on feed type, experimental design, data
+quality, and model-selection criteria.</p>
 </div>
 </div>
 <div id="next-steps" class="section level1">
@@ -719,52 +940,73 @@ terminology commonly used in their field.</p>
 <p>Additional package capabilities include:</p>
 <div id="importing-manual-datasets" class="section level2">
 <h2>Importing Manual Datasets</h2>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>gp <span class="ot">&lt;-</span> <span class="fu">as_rumen_gp</span>(</span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>  <span class="at">head_col =</span> <span class="st">&quot;Bottle&quot;</span>,</span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>  <span class="at">time_col =</span> <span class="st">&quot;Time&quot;</span>,</span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>  <span class="at">gas_col =</span> <span class="st">&quot;Gas&quot;</span></span>
-<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>)</span></code></pre></div>
-</div>
-<div id="importing-pressure-data" class="section level2">
-<h2>Importing Pressure Data</h2>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>gp <span class="ot">&lt;-</span> <span class="fu">as_rumen_gp</span>(</span>
 <span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
 <span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="at">head_col =</span> <span class="st">&quot;Bottle&quot;</span>,</span>
 <span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>  <span class="at">time_col =</span> <span class="st">&quot;Time&quot;</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span>,</span>
-<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>  <span class="at">pressure_unit =</span> <span class="st">&quot;psi&quot;</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>  <span class="at">headspace_volume =</span> <span class="dv">60</span></span>
-<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>  <span class="at">gas_col =</span> <span class="st">&quot;Gas&quot;</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="importing-pressure-data" class="section level2">
+<h2>Importing Pressure Data</h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>gp <span class="ot">&lt;-</span> <span class="fu">as_rumen_gp</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="at">data =</span> my_data,</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="at">head_col =</span> <span class="st">&quot;Bottle&quot;</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>  <span class="at">time_col =</span> <span class="st">&quot;Time&quot;</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>  <span class="at">pressure_col =</span> <span class="st">&quot;PSI&quot;</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>  <span class="at">pressure_unit =</span> <span class="st">&quot;psi&quot;</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>  <span class="at">headspace_volume =</span> <span class="dv">60</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="user-defined-models" class="section level2">
 <h2>User-Defined Models</h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>custom_fit <span class="ot">&lt;-</span> <span class="fu">fit_custom</span>(</span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="at">data =</span> gp,</span>
-<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="at">formula =</span></span>
-<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>    Gas_mL <span class="sc">~</span></span>
-<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>      A <span class="sc">*</span></span>
-<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>      (</span>
-<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>        Time_h <span class="sc">/</span></span>
-<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a>        (</span>
-<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>          Time_h <span class="sc">+</span> K</span>
-<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a>        )</span>
-<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a>      ),</span>
-<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">list</span>(</span>
-<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a>    <span class="at">A =</span> <span class="dv">150</span>,</span>
-<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a>    <span class="at">K =</span> <span class="dv">10</span></span>
-<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a>  ),</span>
-<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(</span>
-<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a>    <span class="at">A =</span> <span class="dv">0</span>,</span>
-<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a>    <span class="at">K =</span> <span class="dv">0</span></span>
-<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a>  ),</span>
-<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a>  <span class="at">model_name =</span> <span class="st">&quot;Hyperbolic&quot;</span></span>
-<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>custom_fit <span class="ot">&lt;-</span> <span class="fu">fit_custom</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="at">data =</span> gp,</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="at">formula =</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>    Gas_mL <span class="sc">~</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>      A <span class="sc">*</span></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>      (</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>        Time_h <span class="sc">/</span></span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>        (</span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a>          Time_h <span class="sc">+</span> K</span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>        )</span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a>      ),</span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">list</span>(</span>
+<span id="cb25-13"><a href="#cb25-13" tabindex="-1"></a>    <span class="at">A =</span> <span class="dv">150</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" tabindex="-1"></a>    <span class="at">K =</span> <span class="dv">10</span></span>
+<span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a>  ),</span>
+<span id="cb25-16"><a href="#cb25-16" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(</span>
+<span id="cb25-17"><a href="#cb25-17" tabindex="-1"></a>    <span class="at">A =</span> <span class="dv">0</span>,</span>
+<span id="cb25-18"><a href="#cb25-18" tabindex="-1"></a>    <span class="at">K =</span> <span class="dv">0</span></span>
+<span id="cb25-19"><a href="#cb25-19" tabindex="-1"></a>  ),</span>
+<span id="cb25-20"><a href="#cb25-20" tabindex="-1"></a>  <span class="at">model_name =</span> <span class="st">&quot;Hyperbolic&quot;</span></span>
+<span id="cb25-21"><a href="#cb25-21" tabindex="-1"></a>)</span></code></pre></div>
 <p>See:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>?as_rumen_gp</span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>?fit_custom</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>?as_rumen_gp</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>?fit_custom</span></code></pre></div>
 <p>for additional details.</p>
 </div>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<p>rumenGP provides a complete workflow for importing, processing,
+visualizing, fitting, comparing, and interpreting in vitro rumen
+gas-production data.</p>
+<p>Current capabilities include:</p>
+<ul>
+<li>ANKOM RF workflows</li>
+<li>Manual gas-volume workflows</li>
+<li>Pressure-based workflows</li>
+<li>Fifteen built-in kinetic models</li>
+<li>User-defined models</li>
+<li>Model comparison and ranking</li>
+<li>Treatment-level model evaluation</li>
+<li>Diagnostic tools</li>
+<li>Visualization tools</li>
+</ul>
+<p>Researchers are encouraged to compare multiple biologically plausible
+models and to consider both statistical performance and biological
+interpretation before selecting a final model.</p>
 </div>
 
 

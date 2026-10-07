@@ -1,6 +1,6 @@
 Package: rumenGP
 Title: Rumen Gas Production Modeling, Comparison, and Visualization
-Version: 0.1.1
+Version: 0.2.1
 Authors@R: 
     c(
       person(
@@ -37,9 +37,9 @@ Suggests: knitr, rmarkdown, pkgdown, spelling
 VignetteBuilder: knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2026-09-22 18:30:18 UTC; Arlan
+Packaged: 2026-10-06 22:34:19 UTC; Arlan
 Author: Arlan Araujo Rodrigues [aut, cre],
   Hilario Cuquetto Mantovani [aut]
 Maintainer: Arlan Araujo Rodrigues <araujorodrig@wisc.edu>
 Repository: CRAN
-Date/Publication: 2026-10-02 10:00:02 UTC
+Date/Publication: 2026-10-07 13:50:02 UTC

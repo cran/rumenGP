@@ -54,9 +54,16 @@ head(gp)
 ## -----------------------------------------------------------------------------
 groot_fit <- fit_groot(gp)
 
+mm_fit <- fit_mm(gp)
+
 gompertz_fit <- fit_gompertz(gp)
 
 brody_fit <- fit_brody(gp)
+
+burr_fit <- fit_burr_xii(gp)
+
+inverse_paralogistic_fit <-
+  fit_inverse_paralogistic(gp)
 
 ## -----------------------------------------------------------------------------
 summary(groot_fit)
@@ -85,6 +92,13 @@ comparison <- compare_models(
 
   Groot = groot_fit,
 
+  MichaelisMenten = mm_fit,
+
+  BurrXII = burr_fit,
+
+  InverseParalogistic =
+    inverse_paralogistic_fit,
+
   Gompertz = gompertz_fit,
 
   Brody = brody_fit
@@ -103,6 +117,13 @@ treatment_comparison <-
   compare_models_by_treatment(
 
     Groot = groot_fit,
+
+    MichaelisMenten = mm_fit,
+
+    BurrXII = burr_fit,
+
+    InverseParalogistic =
+      inverse_paralogistic_fit,
 
     Gompertz = gompertz_fit,
 
